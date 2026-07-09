@@ -1,0 +1,38 @@
+Project Tracking Dashboard — Auto-calculated Summary
+Generated,2026-07-09
+
+Metric,Value,Notes
+Total Projects,9,5 cost efficiency + 4 hospital director-led
+Realized Savings (SAR),9025215,2 projects still pending calculation
+Completed Cost-Efficiency Projects,1,of 5
+Tasks Delayed,1,out of 15 tracked tasks (Hospital Director projects)
+Tasks Not Yet Started,14,out of 15 tracked tasks
+Departments Engaged (Cost Efficiency),4,"Radiology, Infection control, Inpatient dept, Rehab"
+
+
+COST EFFICIENCY PROJECTS
+N.,Project Title,Project Owner,Department,Status,Cost Savings (SAR)
+1,Reducing Inappropriate CT studies and minimizing radiation exposure,Dr. Ahmed Nafea,Radiology,On Going,Pending in Data Collection Phase
+2,Operational cost reduction in Mpox diagnosis: Lean approach,Ms. Jawaher Aldabaan,Infection control,On Going,310005
+3,Accuracy in TB Cases,Ms. Jawaher Aldabaan,Infection control,On Going,Pending in Calculating avoidant cost
+4,Reducing Average Length of stay from 5.5 to 3.5 Days within 6 months At Al Iman General Hospital,Mr. Hani,Inpatient dept,On Going,4341610
+5,FAST-Track Rehab: Reducing Admission Delays to < 1.5 days,Dr. Enas Makawi,Rehab,Completed By 2025 DEC.,4373600
+
+
+HOSPITAL DIRECTOR PROJECTS
+Project,Owner,KPI,Status,Risk,Priority,Task Name,Assignee,Description,Start Date,End Date,Baseline,Target,Actual
+Enhancing the patient experience in outpatient departments (OPD),Mr. Jahz Almotairy,Press Ganey,Not Yet Started,On Track,Low,زيادة التوعية بالرقم 19910,مدير العيادات / مديرة التمريض للعيادات الخارجية,بوسترز و عمل ورشات عمل مع التمريض,2026-07-08,2026-09-30,—,> 85%,—
+Enhancing the patient experience in outpatient departments (OPD),Mr. Jahz Almotairy,Press Ganey,Not Yet Started,On Track,High,تحسين تواصل الاطباء,تجربة المريض / الإدارة الطبية,0% بلاغات سوء معاملة محق وتقليل البلاغات الناتجة عن ضعف التواصل,2026-07-08,2026-09-30,—,—,—
+Enhancing the patient experience in outpatient departments (OPD),Mr. Jahz Almotairy,Press Ganey,Not Yet Started,On Track,Medium,تقليل عدد الزيارات لإتاحة المواعيد,مدير نموذج الرعاية الصحية,إعطاء المريض الوقت الكافي – توفر المواعيد,2026-07-08,2027-01-01,—,0,—
+Enhancing the patient experience in outpatient departments (OPD),Mr. Jahz Almotairy,Press Ganey,Not Yet Started,On Track,High,تحسين تواصل التمريض,إدارة التمريض,ورشات عمل وتعليم مستمر للتمريض,2026-07-08,2026-09-30,—,—,—
+Enhancing the patient experience in outpatient departments (OPD),Mr. Jahz Almotairy,Press Ganey,Delayed,Critical,High,أجهزة الخدمة الذاتية والاستدعاء,إدارة الصحة الرقمية,تفعيل الاجهزة وعمل اللازم من التدريب,2026-07-09,2027-01-01,—,> 90%,—
+Enhancing communication in the Emergency Department (ED),Mr. Jahz Almotairy,تأخير استقبال / خدمة المريض في المنشأة الصحية,Not Yet Started,On Track,High,ورشة عمل خاصة,تجربة المريض / إدارة التمريض,تفعيل دور منسقين الطوارئ وحل الإشكاليات الواردة في التقارير,2026-07-08,2026-12-31,39 بلاغ,—,39 بلاغ
+Enhancing communication in the Emergency Department (ED),Mr. Jahz Almotairy,تأخير استقبال / خدمة المريض في المنشأة الصحية,Not Yet Started,On Track,High,السياسات,إدارة الموارد الذاتية / الجودة,مراجعة السياسات الخاصة بالموارد الذاتية,2026-07-08,2026-12-31,—,—,—
+Enhancing communication in the Emergency Department (ED),Mr. Jahz Almotairy,تأخير استقبال / خدمة المريض في المنشأة الصحية,Not Yet Started,On Track,High,السياسات,الإدارة الطبية / الجودة,مراجعة سياسات استقبال حالات النساء والولادة,2026-07-08,2027-01-01,24 بلاغ,—,24 بلاغ
+Enhancing communication in the Emergency Department (ED),Mr. Jahz Almotairy,تأخير استقبال / خدمة المريض في المنشأة الصحية,Not Yet Started,On Track,High,التقارير,الإدارة الطبية,تسريع إجراءات كتابة تقارير الاصابات,2026-07-09,2027-01-02,—,—,—
+Compliance with Sick Leave Procedures,Mr. Jahz Almotairy,"شكاوي الاجازات المرضية (حضوري, 937, 19910)",Not Yet Started,On Track,High,متابعة دورية للاجازات,التقارير الطبية,المراجعة اليومية من قبل التقارير الطبية لإعادة ربط الاجازات,2026-07-08,2026-12-31,99,—,99
+Compliance with Sick Leave Procedures,Mr. Jahz Almotairy,"شكاوي الاجازات المرضية (حضوري, 937, 19910)",Not Yet Started,On Track,Medium,منسق تقارير,الإدارة الطبية,توفير منسق لعمل تقرير اسبوعي بالتفاصيل يرسل إلى الإدارة الطبية,2026-07-08,2026-12-31,—,—,—
+Compliance with Sick Leave Procedures,Mr. Jahz Almotairy,"شكاوي الاجازات المرضية (حضوري, 937, 19910)",Not Yet Started,On Track,High,توعية بأهمية الاجازات المرضية,الإدارة الطبية,عمل الجلسات التوعوية مع الاطباء,2026-07-08,2026-12-31,—,—,—
+إحسان للتنويم (Inpatient Dignity Program),Mr. Jahz Almotairy,سوء معاملة وسوء تواصل,Not Yet Started,On Track,Medium,متابعة يومية,تجربة المريض,المرور اليومي للمرضى المنومين وقياس التواصل ورصد سوء المعاملة,2026-07-08,2026-12-31,—,0,—
+إحسان للتنويم (Inpatient Dignity Program),Mr. Jahz Almotairy,سوء معاملة وسوء تواصل,Not Yet Started,On Track,Medium,متابعة يومية,تجربة المريض,رصد عدم المرور اليومي وعدم التجاوب (أطباء – تمريض),2026-07-08,2026-12-31,—,تطبيق عناصر احسان,—
+إحسان للتنويم (Inpatient Dignity Program),Mr. Jahz Almotairy,سوء معاملة وسوء تواصل,Not Yet Started,On Track,Medium,إحسان,تجربة المريض,تطبيق عناصر احسان في التنويم,2026-07-08,2026-12-31,—,90%,—

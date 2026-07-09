@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<template id="__bundler_thumbnail" data-bg-color="#1a3a5c">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect x="15" y="20" width="70" height="14" rx="3" fill="#ffffff" opacity="0.9"/>
+    <rect x="15" y="42" width="20" height="34" rx="3" fill="#ffffff" opacity="0.7"/>
+    <rect x="40" y="42" width="20" height="34" rx="3" fill="#ffffff" opacity="0.7"/>
+    <rect x="65" y="42" width="20" height="34" rx="3" fill="#ffffff" opacity="0.7"/>
+  </svg>
+</template>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: oklch(98% 0.006 255); font-family: 'Inter','Tajawal',sans-serif; }
+    ::selection { background: oklch(85% 0.06 255); }
+    input::placeholder { color: oklch(60% 0.01 255); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</helmet>
+
+<div style="min-height: 100vh; background: oklch(98% 0.006 255); color: oklch(24% 0.015 255); padding-bottom: 64px;">
+
+  <!-- Top bar -->
+  <div style="background: linear-gradient(135deg, oklch(30% 0.07 255), oklch(38% 0.1 258)); padding: 28px 40px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+    <div>
+      <div style="font-size: 26px; font-weight: 800; color: white; letter-spacing: -0.01em;">Project Tracking Dashboard <span style="direction: rtl; unicode-bidi: isolate; font-weight: 700;">لوحة متابعة المشاريع</span></div>
+      <div style="font-size: 14px; color: oklch(85% 0.03 255); margin-top: 4px;">Auto-calculated from source tracking sheet · {{ todayLabel }}</div>
+    </div>
+    <div style="position: relative; min-width: 280px;">
+      <input type="text" value="{{ query }}" oninput="{{ onQueryChange }}" placeholder="Search projects, owners, departments… · ابحث" dir="auto" style="width: 100%; padding: 12px 16px 12px 40px; border-radius: 10px; border: none; background: rgba(255,255,255,0.14); color: white; font-size: 14px; font-family: inherit; outline: none;" />
+      <span style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: oklch(85% 0.03 255); font-size: 14px;">⌕</span>
+    </div>
+  </div>
+
+  <!-- Summary cards -->
+  <div style="max-width: 1320px; margin: -28px auto 0; padding: 0 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; position: relative; z-index: 2;">
+    <sc-for list="{{ summaryCards }}" as="card" hint-placeholder-count="6">
+      <div style="background: white; border-radius: 14px; padding: 20px; box-shadow: 0 8px 24px oklch(30% 0.05 255 / 0.12); border-top: 4px solid {{ card.color }};">
+        <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: oklch(50% 0.02 255);">{{ card.labelEn }}</div>
+        <div dir="auto" style="font-size: 12px; color: oklch(55% 0.02 255); margin-top: 2px;">{{ card.labelAr }}</div>
+        <div style="font-size: 30px; font-weight: 800; color: {{ card.color }}; margin-top: 10px;">{{ card.value }}</div>
+        <div style="font-size: 12px; color: oklch(55% 0.02 255); margin-top: 2px;">{{ card.sub }}</div>
+      </div>
+    </sc-for>
+  </div>
+
+  <!-- Status distribution bar -->
+  <div style="max-width: 1320px; margin: 24px auto 0; padding: 0 40px;">
+    <div style="background: white; border-radius: 14px; padding: 20px 24px; box-shadow: 0 2px 10px oklch(30% 0.03 255 / 0.06);">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+        <div style="font-size: 13px; font-weight: 700; color: oklch(35% 0.02 255);">All Projects — Status Mix <span dir="rtl" style="font-weight: 500; color: oklch(55% 0.02 255);">· توزيع الحالات</span></div>
+      </div>
+      <div style="display: flex; height: 14px; border-radius: 7px; overflow: hidden; background: oklch(94% 0.005 255);">
+        <sc-for list="{{ statusMix }}" as="seg" hint-placeholder-count="4">
+          <div style="width: {{ seg.pct }}; background: {{ seg.color }};" title="{{ seg.label }}"></div>
+        </sc-for>
+      </div>
+      <div style="display: flex; gap: 20px; margin-top: 12px; flex-wrap: wrap;">
+        <sc-for list="{{ statusMix }}" as="seg2" hint-placeholder-count="4">
+          <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: oklch(45% 0.02 255);">
+            <span style="width: 9px; height: 9px; border-radius: 50%; background: {{ seg2.color }}; display: inline-block;"></span>
+            {{ seg2.label }} ({{ seg2.count }})
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cost Efficiency section -->
+  <div style="max-width: 1320px; margin: 32px auto 0; padding: 0 40px;">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+      <div>
+        <div style="font-size: 19px; font-weight: 800; color: oklch(28% 0.02 255);">Cost Efficiency Projects</div>
+        <div dir="rtl" style="font-size: 13px; color: oklch(50% 0.02 255);">قائمة مشاريع كفاءة التكلفة · مسؤول: Ms. Rahaf</div>
+      </div>
+      <div style="font-size: 13px; color: oklch(50% 0.02 255);">{{ costEffCount }} projects · {{ costEffSavingsLabel }}</div>
+    </div>
+
+    <div style="background: white; border-radius: 14px; box-shadow: 0 2px 10px oklch(30% 0.03 255 / 0.06); overflow: hidden;">
+      <div style="display: grid; grid-template-columns: 40px 2.4fr 1.1fr 1fr 1fr 1.1fr; gap: 0; padding: 14px 20px; background: oklch(96% 0.008 255); font-size: 12px; font-weight: 700; color: oklch(45% 0.02 255); text-transform: uppercase; letter-spacing: 0.03em;">
+        <div>N.</div><div>Project / المشروع</div><div>Owner</div><div>Department</div><div>Status</div><div>Cost Savings (SAR)</div>
+      </div>
+      <sc-for list="{{ filteredCostEff }}" as="p" hint-placeholder-count="5">
+        <div style="display: grid; grid-template-columns: 40px 2.4fr 1.1fr 1fr 1fr 1.1fr; gap: 0; padding: 16px 20px; border-top: 1px solid oklch(94% 0.005 255); align-items: center; animation: fadeIn 0.25s ease both;">
+          <div style="font-weight: 700; color: oklch(55% 0.02 255);">{{ p.no }}</div>
+          <div>
+            <div dir="auto" style="font-size: 14px; font-weight: 600; color: oklch(26% 0.02 255); line-height: 1.4;">{{ p.title }}</div>
+            <div style="margin-top: 6px; height: 6px; width: 140px; border-radius: 3px; background: oklch(93% 0.005 255); overflow: hidden;">
+              <div style="height: 100%; width: {{ p.progressPct }}; background: {{ p.progressColor }};"></div>
+            </div>
+          </div>
+          <div dir="auto" style="font-size: 13px; color: oklch(38% 0.02 255);">{{ p.owner }}</div>
+          <div dir="auto" style="font-size: 13px; color: oklch(38% 0.02 255);">{{ p.dept }}</div>
+          <div>
+            <span style="font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 999px; background: {{ p.statusBg }}; color: {{ p.statusColor }};">{{ p.statusLabel }}</span>
+          </div>
+          <div style="font-size: 13px; font-weight: 700; color: {{ p.savingsColor }};" dir="auto">{{ p.savingsLabel }}</div>
+        </div>
+      </sc-for>
+      <sc-if value="{{ costEffEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="padding: 28px; text-align: center; color: oklch(55% 0.02 255); font-size: 14px;">No projects match your search.</div>
+      </sc-if>
+    </div>
+  </div>
+
+  <!-- Hospital Director Projects -->
+  <div style="max-width: 1320px; margin: 40px auto 0; padding: 0 40px;">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+      <div>
+        <div style="font-size: 19px; font-weight: 800; color: oklch(28% 0.02 255);">Hospital Director Projects</div>
+        <div dir="rtl" style="font-size: 13px; color: oklch(50% 0.02 255);">مشاريع مدير المستشفى · Owner: Mr. Jahz Almotairy</div>
+      </div>
+      <div style="font-size: 13px; color: oklch(50% 0.02 255);">{{ hdCount }} projects · {{ hdTaskCount }} tasks tracked</div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      <sc-for list="{{ filteredHospitalProjects }}" as="proj" hint-placeholder-count="4">
+        <div style="background: white; border-radius: 14px; box-shadow: 0 2px 10px oklch(30% 0.03 255 / 0.06); overflow: hidden; animation: fadeIn 0.25s ease both;">
+          <div onclick="{{ proj.toggle }}" style="display: flex; align-items: center; gap: 16px; padding: 18px 22px; cursor: pointer;">
+            <div style="width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; background: {{ proj.ringBg }}; color: {{ proj.ringColor }};">{{ proj.pctLabel }}</div>
+            <div style="flex: 1; min-width: 0;">
+              <div dir="auto" style="font-size: 15px; font-weight: 700; color: oklch(26% 0.02 255);">{{ proj.title }}</div>
+              <div style="font-size: 12px; color: oklch(52% 0.02 255); margin-top: 2px;">{{ proj.owner }} · {{ proj.taskCountLabel }} · KPI: <span dir="auto">{{ proj.kpiLabel }}</span></div>
+            </div>
+            <div style="display: flex; gap: 8px; flex-shrink: 0;">
+              <sc-for list="{{ proj.chips }}" as="chip" hint-placeholder-count="2">
+                <span style="font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 999px; background: {{ chip.bg }}; color: {{ chip.color }};">{{ chip.label }}</span>
+              </sc-for>
+            </div>
+            <div style="font-size: 18px; color: oklch(60% 0.02 255); transform: {{ proj.chevronRotate }}; transition: transform 0.2s;">⌄</div>
+          </div>
+
+          <sc-if value="{{ proj.isOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="border-top: 1px solid oklch(94% 0.005 255); overflow-x: auto;">
+              <div style="display: grid; grid-template-columns: 1fr 0.7fr 0.7fr 1.6fr 1.2fr 1.8fr 1.6fr; min-width: 1000px; gap: 0; padding: 12px 22px; background: oklch(97% 0.006 255); font-size: 11px; font-weight: 700; color: oklch(48% 0.02 255); text-transform: uppercase; letter-spacing: 0.03em;">
+                <div>Status</div><div>Risk</div><div>Priority</div><div>Task</div><div>Assignee</div><div>Description</div><div>KPI (Baseline → Target → Actual)</div>
+              </div>
+              <sc-for list="{{ proj.tasks }}" as="t" hint-placeholder-count="4">
+                <div style="display: grid; grid-template-columns: 1fr 0.7fr 0.7fr 1.6fr 1.2fr 1.8fr 1.6fr; min-width: 1000px; gap: 0; padding: 14px 22px; border-top: 1px solid oklch(95% 0.005 255); align-items: start; font-size: 12.5px;">
+                  <div><span style="font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 999px; background: {{ t.statusBg }}; color: {{ t.statusColor }};">{{ t.status }}</span></div>
+                  <div><span style="font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 999px; background: {{ t.riskBg }}; color: {{ t.riskColor }};">{{ t.risk }}</span></div>
+                  <div><span style="font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 999px; background: {{ t.priorityBg }}; color: {{ t.priorityColor }};">{{ t.priority }}</span></div>
+                  <div dir="auto" style="color: oklch(30% 0.02 255); font-weight: 600; line-height: 1.5;">{{ t.taskName }}</div>
+                  <div dir="auto" style="color: oklch(45% 0.02 255); white-space: pre-line; line-height: 1.5;">{{ t.assignee }}</div>
+                  <div>
+                    <div dir="auto" style="color: oklch(45% 0.02 255); white-space: pre-line; line-height: 1.5;">{{ t.description }}</div>
+                    <div dir="ltr" style="unicode-bidi: isolate; color: oklch(58% 0.02 255); font-size: 11.5px; margin-top: 4px;">{{ t.dateRange }}</div>
+                  </div>
+                  <div dir="auto" style="color: oklch(40% 0.02 255); line-height: 1.6;">{{ t.kpiLine }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+      <sc-if value="{{ hdEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="padding: 28px; text-align: center; color: oklch(55% 0.02 255); font-size: 14px; background: white; border-radius: 14px;">No projects match your search.</div>
+      </sc-if>
+    </div>
+  </div>
+
+  <div style="max-width: 1320px; margin: 40px auto 0; padding: 0 40px; font-size: 12px; color: oklch(60% 0.02 255); text-align: center;">
+    Figures are computed live from task status, risk and cost-savings fields in the source tracking sheet — no manual totals to maintain. · الأرقام محسوبة تلقائيًا من حالة المهام والتكاليف في الملف الأصلي
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const COST_EFF_STATUS_COLORS = {
+  'on going': { bg: 'oklch(93% 0.05 255)', color: 'oklch(45% 0.14 255)' },
+  'completed': { bg: 'oklch(92% 0.06 150)', color: 'oklch(45% 0.14 150)' },
+  'default': { bg: 'oklch(93% 0.01 255)', color: 'oklch(50% 0.02 255)' }
+};
+
+const TASK_STATUS_COLORS = {
+  'complete': { bg: 'oklch(92% 0.06 150)', color: 'oklch(42% 0.14 150)' },
+  'in progress': { bg: 'oklch(93% 0.05 255)', color: 'oklch(45% 0.14 255)' },
+  'on hold': { bg: 'oklch(93% 0.06 80)', color: 'oklch(48% 0.13 80)' },
+  'not yet started': { bg: 'oklch(93% 0.008 255)', color: 'oklch(48% 0.02 255)' },
+  'delayed': { bg: 'oklch(92% 0.07 25)', color: 'oklch(48% 0.16 25)' },
+  'default': { bg: 'oklch(93% 0.01 255)', color: 'oklch(50% 0.02 255)' }
+};
+
+const RISK_COLORS = {
+  'on track': { bg: 'oklch(92% 0.06 150)', color: 'oklch(42% 0.14 150)' },
+  'at risk': { bg: 'oklch(93% 0.06 80)', color: 'oklch(48% 0.13 80)' },
+  'critical': { bg: 'oklch(92% 0.07 25)', color: 'oklch(48% 0.16 25)' },
+  'default': { bg: 'oklch(93% 0.01 255)', color: 'oklch(50% 0.02 255)' }
+};
+
+const PRIORITY_COLORS = {
+  'low': { bg: 'oklch(93% 0.008 255)', color: 'oklch(48% 0.02 255)' },
+  'medium': { bg: 'oklch(93% 0.05 255)', color: 'oklch(45% 0.14 255)' },
+  'high': { bg: 'oklch(92% 0.07 25)', color: 'oklch(48% 0.16 25)' },
+  'default': { bg: 'oklch(93% 0.01 255)', color: 'oklch(50% 0.02 255)' }
+};
+
+function norm(s) { return (s || '').toString().trim().toLowerCase(); }
+
+function excelDate(serial) {
+  const n = parseFloat(serial);
+  if (!n) return '—';
+  const utc_days = Math.floor(n - 25569);
+  const date = new Date(utc_days * 86400 * 1000);
+  return date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
+}
+
+class Component extends DCLogic {
+  state = {
+    query: '',
+    openProjects: { 0: true }
+  };
+
+  costEfficiencyData = [
+    { no: 1, title: 'Reducing Inappropriate CT studies and minimizing radiation exposure', owner: 'Dr. Ahmed Nafea', dept: 'Radiology', status: 'On Going', savings: null, savingsNote: 'Pending in Data Collection Phase' },
+    { no: 2, title: 'Operational cost reduction in Mpox diagnosis: Lean approach', owner: 'Ms. Jawaher Aldabaan', dept: 'Infection control', status: 'On Going', savings: 310005 },
+    { no: 3, title: 'Accuracy in TB Cases', owner: 'Ms. Jawaher Aldabaan', dept: 'Infection control', status: 'On Going', savings: null, savingsNote: 'Pending in Calculating avoidant cost' },
+    { no: 4, title: 'Reducing Average Length of stay from 5.5 to 3.5 Days within 6 months At Al Iman General Hospital', owner: 'Mr. Hani', dept: 'Inpatient dept', status: 'On Going', savings: 4341610 },
+    { no: 5, title: 'FAST-Track Rehab: Reducing Admission Delays to < 1.5 days', owner: 'Dr. Enas Makawi', dept: 'Rehab', status: 'Completed By 2025 DEC.', savings: 4373600 }
+  ];
+
+  hospitalDirectorData = [
+    {
+      title: 'Enhancing the patient experience in outpatient departments (OPD)',
+      owner: 'Mr. Jahz Almotairy',
+      kpiLabel: 'Press Ganey',
+      tasks: [
+        { status: 'Not Yet Started', risk: 'On Track', priority: 'Low', start: 46211, end: 46295, taskName: 'زيادة التوعية بالرقم 19910', assignee: 'مدير العيادات\nمديرة التمريض للعيادات الخارجية', description: 'بوسترز و عمل ورشات عمل مع التمريض', baseline: '—', target: '> 85%', actual: '—' },
+        { status: 'Not Yet Started', risk: 'On Track', priority: 'High', start: 46211, end: 46295, taskName: 'تحسين تواصل الاطباء', assignee: 'تجربة المريض\nالإدارة الطبية', description: '0% بلاغات سوء معاملة محق وتقليل البلاغات الناتجة عن ضعف التواصل وتحسين التواصل مع الطبيب', baseline: '—', target: '—', actual: '—' },
+        { status: 'Not Yet Started', risk: 'On Track', priority: 'Medium', start: 46211, end: 46388, taskName: 'تقليل عدد الزيارات لإتاحة المواعيد', assignee: 'مدير نموذج الرعاية الصحية', description: 'إعطاء المريض الوقت الكافي – توفر المواعيد', baseline: '—', target: '0', actual: '—' },
+        { status: 'Not Yet Started', risk: 'On Track', priority: 'High', start: 46211, end: 46295, taskName: 'تحسين تواصل التمريض', assignee: 'إدارة التمريض', description: 'ورشات عمل وتعليم مستمر للتمريض', baseline: '—', target: '—', actual: '—' },
+        { status: 'Delayed', risk: 'Critical', priority: 'High', start: 46212, end: 46388, taskName: 'أجهزة الخدمة الذاتية والاستدعاء', assignee: 'إدارة الصحة الرقمية', description: 'تفعيل الاجهزة وعمل اللازم من التدريب', baseline: '—', target: '> 90%', actual: '—' }
+      ]
+    },
+    {
+      title: 'Enhancing communication in the Emergency Department (ED)',
+      owner: 'Mr. Jahz Almotairy',
+      kpiLabel: 'تأخير استقبال / خدمة المريض في المنشأة الصحية',
+      tasks: [
+        { status: 'Not Yet Started', risk: 'On Track', priority: 'High', start: 46211, end: 46387, taskName: 'ورشة عمل خاصة', assignee: 'تجربة المريض\nإدارة التمريض', description: 'تفعيل دور منسقين الطوارئ وحل الإشكاليات الواردة في التقارير', baseline: '39 بلاغ', target: '—', actual: '39 بلاغ' },
+        { status: 'Not Yet Started', risk: 'On Track', priority: 'High', start: 46211, end: 46387, taskName: 'السياسات', assignee: 'إدارة الموارد الذاتية\nالجودة', description: 'مراجعة السياسات الخاصة بالموارد الذاتية', baseline: '—', target: '—', actual: '—' },
+        { status: 'Not Yet Started', risk: 'On Track', priority: 'High', start: 46211, end: 46388, taskName: 'السياسات', assignee: 'الإدارة الطبية\nالجودة', description: 'مراجعة سياسات استقبال حالات النساء والولادة', baseline: '24 بلاغ', target: '—', actual: '24 بلاغ' },
+        { status: 'Not Yet Started', risk: 'On Track', priority: 'High', start: 46212, end: 46389, taskName: 'التقارير', assignee: 'الإدارة الطبية', description: 'تسريع إجراءات كتابة تقارير الاصابات', baseline: '—', target: '—', actual: '—' }
+      ]
+    },
+    {
+      title: 'Compliance with Sick Leave Procedures',
+      owner: 'Mr. Jahz Almotairy',
+      kpiLabel: 'شكاوي الاجازات المرضية (حضوري, 937, 19910)',
+      tasks: [
+        { status: 'Not Yet Started', risk: 'On Track', priority: 'High', start: 46211, end: 46387, taskName: 'متابعة دورية للاجازات', assignee: 'التقارير الطبية', description: 'المراجعة اليومية من قبل التقارير الطبية لإعادة ربط الاجازات', baseline: '99', target: '—', actual: '99' },
+        { status: 'Not Yet Started', risk: 'On Track', priority: 'Medium', start: 46211, end: 46387, taskName: 'منسق تقارير', assignee: 'الإدارة الطبية', description: 'توفير منسق لعمل تقرير اسبوعي بالتفاصيل يرسل إلى الإدارة الطبية', baseline: '—', target: '—', actual: '—' },
+        { status: 'Not Yet Started', risk: 'On Track', priority: 'High', start: 46211, end: 46387, taskName: 'توعية بأهمية الاجازات المرضية', assignee: 'الإدارة الطبية', description: 'عمل الجلسات التوعوية مع الاطباء', baseline: '—', target: '—', actual: '—' }
+      ]
+    },
+    {
+      title: 'إحسان للتنويم (Inpatient Dignity Program)',
+      owner: 'Mr. Jahz Almotairy',
+      kpiLabel: 'سوء معاملة وسوء تواصل',
+      tasks: [
+        { status: 'Not Yet Started', risk: 'On Track', priority: 'Medium', start: 46211, end: 46387, taskName: 'متابعة يومية', assignee: 'تجربة المريض', description: 'المرور اليومي للمرضى المنومين وقياس التواصل ورصد سوء المعاملة', baseline: '—', target: '0', actual: '—' },
+        { status: 'Not Yet Started', risk: 'On Track', priority: 'Medium', start: 46211, end: 46387, taskName: 'متابعة يومية', assignee: 'تجربة المريض', description: 'رصد عدم المرور اليومي وعدم التجاوب (أطباء – تمريض)', baseline: '—', target: 'تطبيق عناصر احسان', actual: '—' },
+        { status: 'Not Yet Started', risk: 'On Track', priority: 'Medium', start: 46211, end: 46387, taskName: 'إحسان', assignee: 'تجربة المريض', description: 'تطبيق عناصر احسان في التنويم', baseline: '—', target: '90%', actual: '—' }
+      ]
+    }
+  ];
+
+  onQueryChange = (e) => this.setState({ query: e.target.value });
+
+  toggleProject(i) {
+    this.setState(s => ({ openProjects: { ...s.openProjects, [i]: !s.openProjects[i] } }));
+  }
+
+  taskPct(status) {
+    const s = norm(status);
+    if (s === 'complete') return 100;
+    if (s === 'in progress') return 50;
+    if (s === 'on hold') return 20;
+    if (s === 'delayed') return 10;
+    return 0;
+  }
+
+  costEffPct(status) {
+    const s = norm(status);
+    if (s.startsWith('completed')) return 100;
+    if (s === 'on going') return 55;
+    if (s === 'delayed') return 15;
+    return 30;
+  }
+
+  renderVals() {
+    const q = norm(this.state.query);
+
+    // ---- Cost efficiency ----
+    const costEff = this.costEfficiencyData.map(p => {
+      const statusKey = norm(p.status).startsWith('completed') ? 'completed' : (norm(p.status) === 'on going' ? 'on going' : 'default');
+      const colors = COST_EFF_STATUS_COLORS[statusKey] || COST_EFF_STATUS_COLORS.default;
+      const pct = this.costEffPct(p.status);
+      return {
+        no: p.no,
+        title: p.title,
+        owner: p.owner,
+        dept: p.dept,
+        statusLabel: p.status,
+        statusBg: colors.bg,
+        statusColor: colors.color,
+        progressPct: pct + '%',
+        progressColor: pct >= 100 ? 'oklch(55% 0.14 150)' : 'oklch(52% 0.13 255)',
+        savingsLabel: p.savings != null ? p.savings.toLocaleString('en-US') + ' SAR' : p.savingsNote,
+        savingsColor: p.savings != null ? 'oklch(42% 0.14 150)' : 'oklch(55% 0.02 255)',
+        _search: norm(p.title + ' ' + p.owner + ' ' + p.dept + ' ' + p.status)
+      };
+    });
+    const filteredCostEff = q ? costEff.filter(p => p._search.includes(q)) : costEff;
+
+    // ---- Hospital director projects ----
+    const hdProjects = this.hospitalDirectorData.map((proj, i) => {
+      const tasks = proj.tasks.map(t => {
+        const statusColors = TASK_STATUS_COLORS[norm(t.status)] || TASK_STATUS_COLORS.default;
+        const riskColors = RISK_COLORS[norm(t.risk)] || RISK_COLORS.default;
+        const priorityColors = PRIORITY_COLORS[norm(t.priority)] || PRIORITY_COLORS.default;
+        return {
+          status: t.status,
+          statusBg: statusColors.bg, statusColor: statusColors.color,
+          risk: t.risk,
+          riskBg: riskColors.bg, riskColor: riskColors.color,
+          priority: t.priority,
+          priorityBg: priorityColors.bg, priorityColor: priorityColors.color,
+          taskName: t.taskName,
+          assignee: t.assignee,
+          description: t.description,
+          dateRange: excelDate(t.start) + ' → ' + excelDate(t.end),
+          kpiLine: t.baseline + ' → ' + t.target + ' → ' + t.actual
+        };
+      });
+      const avgPct = Math.round(proj.tasks.reduce((a, t) => a + this.taskPct(t.status), 0) / proj.tasks.length);
+      const delayedCount = proj.tasks.filter(t => norm(t.status) === 'delayed' || norm(t.risk) === 'critical').length;
+      const highPriorityCount = proj.tasks.filter(t => norm(t.priority) === 'high').length;
+      const chips = [];
+      if (delayedCount > 0) chips.push({ label: delayedCount + ' at risk', bg: 'oklch(92% 0.07 25)', color: 'oklch(48% 0.16 25)' });
+      if (highPriorityCount > 0) chips.push({ label: highPriorityCount + ' high priority', bg: 'oklch(93% 0.06 80)', color: 'oklch(48% 0.13 80)' });
+      const isOpen = !!this.state.openProjects[i];
+      return {
+        title: proj.title,
+        owner: proj.owner,
+        kpiLabel: proj.kpiLabel,
+        pctLabel: avgPct + '%',
+        ringBg: avgPct >= 66 ? 'oklch(92% 0.06 150)' : (avgPct >= 33 ? 'oklch(93% 0.05 255)' : 'oklch(93% 0.008 255)'),
+        ringColor: avgPct >= 66 ? 'oklch(42% 0.14 150)' : (avgPct >= 33 ? 'oklch(45% 0.14 255)' : 'oklch(48% 0.02 255)'),
+        taskCountLabel: proj.tasks.length + ' tasks',
+        chips,
+        isOpen,
+        chevronRotate: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+        toggle: () => this.toggleProject(i),
+        tasks,
+        _search: norm(proj.title + ' ' + proj.owner + ' ' + proj.kpiLabel + ' ' + proj.tasks.map(t => t.taskName + ' ' + t.assignee + ' ' + t.description + ' ' + t.status + ' ' + t.priority).join(' '))
+      };
+    });
+    const filteredHospitalProjects = q ? hdProjects.filter(p => p._search.includes(q)) : hdProjects;
+
+    // ---- Derived summary ----
+    const totalProjects = this.costEfficiencyData.length + this.hospitalDirectorData.length;
+    const completedCostEff = this.costEfficiencyData.filter(p => norm(p.status).startsWith('completed')).length;
+    const totalSavings = this.costEfficiencyData.reduce((a, p) => a + (p.savings || 0), 0);
+    const pendingSavings = this.costEfficiencyData.filter(p => p.savings == null).length;
+    const depts = [...new Set(this.costEfficiencyData.map(p => p.dept))];
+
+    const allTasks = this.hospitalDirectorData.flatMap(p => p.tasks);
+    const delayedTasks = allTasks.filter(t => norm(t.status) === 'delayed').length;
+    const notStartedTasks = allTasks.filter(t => norm(t.status) === 'not yet started').length;
+    const inProgressTasks = allTasks.filter(t => norm(t.status) === 'in progress').length;
+    const completeTasks = allTasks.filter(t => norm(t.status) === 'complete').length;
+
+    const summaryCards = [
+      { labelEn: 'Total Projects', labelAr: 'إجمالي المشاريع', value: totalProjects, sub: this.costEfficiencyData.length + ' cost efficiency + ' + this.hospitalDirectorData.length + ' director-led', color: 'oklch(48% 0.13 255)' },
+      { labelEn: 'Realized Savings', labelAr: 'الوفورات المحققة', value: (totalSavings / 1e6).toFixed(1) + 'M SAR', sub: pendingSavings + ' project(s) pending calculation', color: 'oklch(48% 0.13 150)' },
+      { labelEn: 'Completed', labelAr: 'مكتملة', value: completedCostEff, sub: 'of ' + this.costEfficiencyData.length + ' cost efficiency projects', color: 'oklch(48% 0.13 150)' },
+      { labelEn: 'Tasks Delayed', labelAr: 'مهام متأخرة', value: delayedTasks, sub: 'out of ' + allTasks.length + ' tracked tasks', color: 'oklch(50% 0.15 25)' },
+      { labelEn: 'Not Yet Started', labelAr: 'لم تبدأ', value: notStartedTasks, sub: 'director-led project tasks', color: 'oklch(50% 0.02 255)' },
+      { labelEn: 'Departments Engaged', labelAr: 'الأقسام المشاركة', value: depts.length, sub: depts.join(' · '), color: 'oklch(48% 0.13 255)' }
+    ];
+
+    const statusMixRaw = [
+      { label: 'Complete', count: completeTasks, color: 'oklch(58% 0.14 150)' },
+      { label: 'In Progress', count: inProgressTasks, color: 'oklch(55% 0.14 255)' },
+      { label: 'Not Yet Started', count: notStartedTasks, color: 'oklch(80% 0.008 255)' },
+      { label: 'Delayed', count: delayedTasks, color: 'oklch(58% 0.16 25)' }
+    ];
+    const totalMix = statusMixRaw.reduce((a, s) => a + s.count, 0) || 1;
+    const statusMix = statusMixRaw.map(s => ({ ...s, pct: ((s.count / totalMix) * 100).toFixed(1) + '%' }));
+
+    return {
+      todayLabel: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }),
+      query: this.state.query,
+      onQueryChange: this.onQueryChange,
+      summaryCards,
+      statusMix,
+      costEffCount: this.costEfficiencyData.length,
+      costEffSavingsLabel: (totalSavings / 1e6).toFixed(1) + 'M SAR realized',
+      filteredCostEff,
+      costEffEmpty: filteredCostEff.length === 0,
+      hdCount: this.hospitalDirectorData.length,
+      hdTaskCount: allTasks.length,
+      filteredHospitalProjects,
+      hdEmpty: filteredHospitalProjects.length === 0
+    };
+  }
+}
+
+</script>
+</body>
+</html>

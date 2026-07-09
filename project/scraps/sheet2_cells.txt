@@ -1,0 +1,1715 @@
+B2: COST EFFICIENCY PROJECTS TRACKING SHEET
+B3: Sheet Under responsibility of Ms. Rahaf
+R6: STATUS KEY
+T6: PRIORITY KEY
+R7: On Hold
+T7: Low
+R8: Not Yet Started
+T8: Medium
+B9: PROJECT DETAILS
+K9: DELIVERABLES
+M9: KPI
+R9: In Progress
+T9: High
+B10: STATUS
+C10: RISK
+D10: PRIORITY
+E10: START DATE
+F10: END DATE
+G10: DURATION
+H10: TASK NAME
+I10: ASSIGNEE
+J10: DESCRIPTION
+K10: DELIVERABLE
+L10: % DONE
+M10: Baseline
+N10: Targeted
+O10: Actual
+R10: Complete
+B11: Reducing Inappropriate CT studies and minimizing radiation exposure   - Project Owner Dr. Ahmed Nafea
+L11: #DIV/0!
+M11: (KPI Name) As of (date)
+B12: On Hold
+C12: On Track 
+D12: High
+E12: 46205.0
+F12: 46205.0
+G12: 0
+H12: Task
+J12: Details of task here
+L12: %
+M12:  
+N12:  
+O12:  
+B13: Not Yet Started
+C13: On Track 
+D13: Low
+E13: 46205.0
+F13: 46205.0
+G13: 0
+H13: Task
+J13: Details of task here
+L13: %
+M13:  
+N13:  
+O13:  
+R13: RISK KEY
+B14: In Progress
+C14: On Track 
+D14: Medium
+E14: 46205.0
+F14: 46205.0
+G14: 0
+H14: Task
+J14: Details of task here
+L14:  %
+M14:  
+N14:  
+O14:  
+R14: On Track
+B15: Complete
+C15: On Track 
+D15: Medium
+E15: 46205.0
+F15: 46205.0
+G15: 0
+H15: Task
+J15: Details of task here
+L15:  %
+M15:  
+N15:  
+O15:  
+R15: At Risk 
+R16: Critical 
+B18: PROJECT DETAILS
+K18: DELIVERABLES
+M18: KPI
+B19: STATUS
+C19: RISK
+D19: PRIORITY
+E19: START DATE
+F19: END DATE
+G19: DURATION
+H19: TASK NAME
+I19: ASSIGNEE
+J19: DESCRIPTION
+K19: DELIVERABLE
+L19: % DONE
+M19: Baseline
+N19: Targeted
+O19: Actual
+B20: Project Name                                    - Project Owner
+L20: #DIV/0!
+M20: (KPI Name) As of (date)
+B21: On Hold
+C21: On Track 
+D21: High
+E21: 46205.0
+F21: 46205.0
+G21: 0
+H21: Task
+J21: Details of task here
+L21:  
+M21:  
+N21:  
+O21:  
+B22: Not Yet Started
+C22: On Track 
+D22: Low
+E22: 46205.0
+F22: 46205.0
+G22: 0
+H22: Task
+J22: Details of task here
+L22:  
+M22:  
+N22:  
+O22:  
+B23: In Progress
+C23: On Track 
+D23: Medium
+E23: 46205.0
+F23: 46205.0
+G23: 0
+H23: Task
+J23: Details of task here
+L23:  %
+M23:  
+N23:  
+O23:  
+B24: Complete
+C24: On Track 
+D24: Medium
+E24: 46205.0
+F24: 46205.0
+G24: 0
+H24: Task
+J24: Details of task here
+L24:  %
+M24:  
+N24:  
+O24:  
+B26: PROJECT DETAILS
+K26: DELIVERABLES
+M26: KPI
+B27: STATUS
+C27: RISK
+D27: PRIORITY
+E27: START DATE
+F27: END DATE
+G27: DURATION
+H27: TASK NAME
+I27: ASSIGNEE
+J27: DESCRIPTION
+K27: DELIVERABLE
+L27: % DONE
+M27: Baseline
+N27: Targeted
+O27: Actual
+B28: Project Name                                    - Project Owner
+L28: #DIV/0!
+M28: (KPI Name) As of (date)
+B29: On Hold
+C29: On Track 
+D29: High
+E29: 46205.0
+F29: 46205.0
+G29: 0
+H29: Task
+J29: Details of task here
+L29:  
+M29:  
+N29:  
+O29:  
+B30: Not Yet Started
+C30: On Track 
+D30: Low
+E30: 46205.0
+F30: 46205.0
+G30: 0
+H30: Task
+J30: Details of task here
+L30:  
+M30:  
+N30:  
+O30:  
+B31: In Progress
+C31: On Track 
+D31: Medium
+E31: 46205.0
+F31: 46205.0
+G31: 0
+H31: Task
+J31: Details of task here
+L31:  %
+M31:  
+N31:  
+O31:  
+B32: Complete
+C32: On Track 
+D32: Medium
+E32: 46205.0
+F32: 46205.0
+G32: 0
+H32: Task
+J32: Details of task here
+L32:  %
+M32:  
+N32:  
+O32:  
+B34: PROJECT DETAILS
+K34: DELIVERABLES
+M34: KPI
+B35: STATUS
+C35: RISK
+D35: PRIORITY
+E35: START DATE
+F35: END DATE
+G35: DURATION
+H35: TASK NAME
+I35: ASSIGNEE
+J35: DESCRIPTION
+K35: DELIVERABLE
+L35: % DONE
+M35: Baseline
+N35: Targeted
+O35: Actual
+B36: Project Name                                    - Project Owner
+L36: #DIV/0!
+M36: (KPI Name) As of (date)
+B37: On Hold
+C37: On Track 
+D37: High
+E37: 46205.0
+F37: 46205.0
+G37: 0
+H37: Task
+J37: Details of task here
+L37:  
+M37:  
+N37:  
+O37:  
+B38: Not Yet Started
+C38: On Track 
+D38: Low
+E38: 46205.0
+F38: 46205.0
+G38: 0
+H38: Task
+J38: Details of task here
+L38:  
+M38:  
+N38:  
+O38:  
+B39: In Progress
+C39: On Track 
+D39: Medium
+E39: 46205.0
+F39: 46205.0
+G39: 0
+H39: Task
+J39: Details of task here
+L39:  %
+M39:  
+N39:  
+O39:  
+B40: Complete
+C40: On Track 
+D40: Medium
+E40: 46205.0
+F40: 46205.0
+G40: 0
+H40: Task
+J40: Details of task here
+L40:  %
+M40:  
+N40:  
+O40:  
+B42: PROJECT DETAILS
+K42: DELIVERABLES
+M42: KPI
+B43: STATUS
+C43: RISK
+D43: PRIORITY
+E43: START DATE
+F43: END DATE
+G43: DURATION
+H43: TASK NAME
+I43: ASSIGNEE
+J43: DESCRIPTION
+K43: DELIVERABLE
+L43: % DONE
+M43: Baseline
+N43: Targeted
+O43: Actual
+B44: Project Name                                    - Project Owner
+L44: #DIV/0!
+M44: (KPI Name) As of (date)
+B45: On Hold
+C45: On Track 
+D45: High
+E45: 46205.0
+F45: 46205.0
+G45: 0
+H45: Task
+J45: Details of task here
+L45:  
+M45:  
+N45:  
+O45:  
+B46: Not Yet Started
+C46: On Track 
+D46: Low
+E46: 46205.0
+F46: 46205.0
+G46: 0
+H46: Task
+J46: Details of task here
+L46:  
+M46:  
+N46:  
+O46:  
+B47: In Progress
+C47: On Track 
+D47: Medium
+E47: 46205.0
+F47: 46205.0
+G47: 0
+H47: Task
+J47: Details of task here
+L47:  %
+M47:  
+N47:  
+O47:  
+B48: Complete
+C48: On Track 
+D48: Medium
+E48: 46205.0
+F48: 46205.0
+G48: 0
+H48: Task
+J48: Details of task here
+L48:  %
+M48:  
+N48:  
+O48:  
+B50: PROJECT DETAILS
+K50: DELIVERABLES
+M50: KPI
+B51: STATUS
+C51: RISK
+D51: PRIORITY
+E51: START DATE
+F51: END DATE
+G51: DURATION
+H51: TASK NAME
+I51: ASSIGNEE
+J51: DESCRIPTION
+K51: DELIVERABLE
+L51: % DONE
+M51: Baseline
+N51: Targeted
+O51: Actual
+B52: Project Name                                    - Project Owner
+L52: #DIV/0!
+M52: (KPI Name) As of (date)
+B53: On Hold
+C53: On Track 
+D53: High
+E53: 46205.0
+F53: 46205.0
+G53: 0
+H53: Task
+J53: Details of task here
+L53:  
+M53:  
+N53:  
+O53:  
+B54: Not Yet Started
+C54: On Track 
+D54: Low
+E54: 46205.0
+F54: 46205.0
+G54: 0
+H54: Task
+J54: Details of task here
+L54:  
+M54:  
+N54:  
+O54:  
+B55: In Progress
+C55: On Track 
+D55: Medium
+E55: 46205.0
+F55: 46205.0
+G55: 0
+H55: Task
+J55: Details of task here
+L55:  %
+M55:  
+N55:  
+O55:  
+B56: Complete
+C56: On Track 
+D56: Medium
+E56: 46205.0
+F56: 46205.0
+G56: 0
+H56: Task
+J56: Details of task here
+L56:  %
+M56:  
+N56:  
+O56:  
+B58: PROJECT DETAILS
+K58: DELIVERABLES
+M58: KPI
+B59: STATUS
+C59: RISK
+D59: PRIORITY
+E59: START DATE
+F59: END DATE
+G59: DURATION
+H59: TASK NAME
+I59: ASSIGNEE
+J59: DESCRIPTION
+K59: DELIVERABLE
+L59: % DONE
+M59: Baseline
+N59: Targeted
+O59: Actual
+B60: Project Name                                    - Project Owner
+L60: #DIV/0!
+M60: (KPI Name) As of (date)
+B61: On Hold
+C61: On Track 
+D61: High
+E61: 46205.0
+F61: 46205.0
+G61: 0
+H61: Task
+J61: Details of task here
+L61:  
+M61:  
+N61:  
+O61:  
+B62: Not Yet Started
+C62: On Track 
+D62: Low
+E62: 46205.0
+F62: 46205.0
+G62: 0
+H62: Task
+J62: Details of task here
+L62:  
+M62:  
+N62:  
+O62:  
+B63: In Progress
+C63: On Track 
+D63: Medium
+E63: 46205.0
+F63: 46205.0
+G63: 0
+H63: Task
+J63: Details of task here
+L63:  %
+M63:  
+N63:  
+O63:  
+B64: Complete
+C64: On Track 
+D64: Medium
+E64: 46205.0
+F64: 46205.0
+G64: 0
+H64: Task
+J64: Details of task here
+L64:  %
+M64:  
+N64:  
+O64:  
+B66: PROJECT DETAILS
+K66: DELIVERABLES
+M66: KPI
+B67: STATUS
+C67: RISK
+D67: PRIORITY
+E67: START DATE
+F67: END DATE
+G67: DURATION
+H67: TASK NAME
+I67: ASSIGNEE
+J67: DESCRIPTION
+K67: DELIVERABLE
+L67: % DONE
+M67: Baseline
+N67: Targeted
+O67: Actual
+B68: Project Name                                    - Project Owner
+L68: #DIV/0!
+M68: (KPI Name) As of (date)
+B69: On Hold
+C69: On Track 
+D69: High
+E69: 46205.0
+F69: 46205.0
+G69: 0
+H69: Task
+J69: Details of task here
+L69:  
+M69:  
+N69:  
+O69:  
+B70: Not Yet Started
+C70: On Track 
+D70: Low
+E70: 46205.0
+F70: 46205.0
+G70: 0
+H70: Task
+J70: Details of task here
+L70:  
+M70:  
+N70:  
+O70:  
+B71: In Progress
+C71: On Track 
+D71: Medium
+E71: 46205.0
+F71: 46205.0
+G71: 0
+H71: Task
+J71: Details of task here
+L71:  %
+M71:  
+N71:  
+O71:  
+B72: Complete
+C72: On Track 
+D72: Medium
+E72: 46205.0
+F72: 46205.0
+G72: 0
+H72: Task
+J72: Details of task here
+L72:  %
+M72:  
+N72:  
+O72:  
+B74: PROJECT DETAILS
+K74: DELIVERABLES
+M74: KPI
+B75: STATUS
+C75: RISK
+D75: PRIORITY
+E75: START DATE
+F75: END DATE
+G75: DURATION
+H75: TASK NAME
+I75: ASSIGNEE
+J75: DESCRIPTION
+K75: DELIVERABLE
+L75: % DONE
+M75: Baseline
+N75: Targeted
+O75: Actual
+B76: Project Name                                    - Project Owner
+L76: #DIV/0!
+M76: (KPI Name) As of (date)
+B77: On Hold
+C77: On Track 
+D77: High
+E77: 46205.0
+F77: 46205.0
+G77: 0
+H77: Task
+J77: Details of task here
+L77:  
+M77:  
+N77:  
+O77:  
+B78: Not Yet Started
+C78: On Track 
+D78: Low
+E78: 46205.0
+F78: 46205.0
+G78: 0
+H78: Task
+J78: Details of task here
+L78:  
+M78:  
+N78:  
+O78:  
+B79: In Progress
+C79: On Track 
+D79: Medium
+E79: 46205.0
+F79: 46205.0
+G79: 0
+H79: Task
+J79: Details of task here
+L79:  %
+M79:  
+N79:  
+O79:  
+B80: Complete
+C80: On Track 
+D80: Medium
+E80: 46205.0
+F80: 46205.0
+G80: 0
+H80: Task
+J80: Details of task here
+L80:  %
+M80:  
+N80:  
+O80:  
+B82: PROJECT DETAILS
+K82: DELIVERABLES
+M82: KPI
+B83: STATUS
+C83: RISK
+D83: PRIORITY
+E83: START DATE
+F83: END DATE
+G83: DURATION
+H83: TASK NAME
+I83: ASSIGNEE
+J83: DESCRIPTION
+K83: DELIVERABLE
+L83: % DONE
+M83: Baseline
+N83: Targeted
+O83: Actual
+B84: Project Name                                    - Project Owner
+L84: #DIV/0!
+M84: (KPI Name) As of (date)
+B85: On Hold
+C85: On Track 
+D85: High
+E85: 46205.0
+F85: 46205.0
+G85: 0
+H85: Task
+J85: Details of task here
+L85:  
+M85:  
+N85:  
+O85:  
+B86: Not Yet Started
+C86: On Track 
+D86: Low
+E86: 46205.0
+F86: 46205.0
+G86: 0
+H86: Task
+J86: Details of task here
+L86:  
+M86:  
+N86:  
+O86:  
+B87: In Progress
+C87: On Track 
+D87: Medium
+E87: 46205.0
+F87: 46205.0
+G87: 0
+H87: Task
+J87: Details of task here
+L87:  %
+M87:  
+N87:  
+O87:  
+B88: Complete
+C88: On Track 
+D88: Medium
+E88: 46205.0
+F88: 46205.0
+G88: 0
+H88: Task
+J88: Details of task here
+L88:  %
+M88:  
+N88:  
+O88:  
+B90: PROJECT DETAILS
+K90: DELIVERABLES
+M90: KPI
+B91: STATUS
+C91: RISK
+D91: PRIORITY
+E91: START DATE
+F91: END DATE
+G91: DURATION
+H91: TASK NAME
+I91: ASSIGNEE
+J91: DESCRIPTION
+K91: DELIVERABLE
+L91: % DONE
+M91: Baseline
+N91: Targeted
+O91: Actual
+B92: Project Name                                    - Project Owner
+L92: #DIV/0!
+M92: (KPI Name) As of (date)
+B93: On Hold
+C93: On Track 
+D93: High
+E93: 46205.0
+F93: 46205.0
+G93: 0
+H93: Task
+J93: Details of task here
+L93:  
+M93:  
+N93:  
+O93:  
+B94: Not Yet Started
+C94: On Track 
+D94: Low
+E94: 46205.0
+F94: 46205.0
+G94: 0
+H94: Task
+J94: Details of task here
+L94:  
+M94:  
+N94:  
+O94:  
+B95: In Progress
+C95: On Track 
+D95: Medium
+E95: 46205.0
+F95: 46205.0
+G95: 0
+H95: Task
+J95: Details of task here
+L95:  %
+M95:  
+N95:  
+O95:  
+B96: Complete
+C96: On Track 
+D96: Medium
+E96: 46205.0
+F96: 46205.0
+G96: 0
+H96: Task
+J96: Details of task here
+L96:  %
+M96:  
+N96:  
+O96:  
+B98: PROJECT DETAILS
+K98: DELIVERABLES
+M98: KPI
+B99: STATUS
+C99: RISK
+D99: PRIORITY
+E99: START DATE
+F99: END DATE
+G99: DURATION
+H99: TASK NAME
+I99: ASSIGNEE
+J99: DESCRIPTION
+K99: DELIVERABLE
+L99: % DONE
+M99: Baseline
+N99: Targeted
+O99: Actual
+B100: Project Name                                    - Project Owner
+L100: #DIV/0!
+M100: (KPI Name) As of (date)
+B101: On Hold
+C101: On Track 
+D101: High
+E101: 46205.0
+F101: 46205.0
+G101: 0
+H101: Task
+J101: Details of task here
+L101:  
+M101:  
+N101:  
+O101:  
+B102: Not Yet Started
+C102: On Track 
+D102: Low
+E102: 46205.0
+F102: 46205.0
+G102: 0
+H102: Task
+J102: Details of task here
+L102:  
+M102:  
+N102:  
+O102:  
+B103: In Progress
+C103: On Track 
+D103: Medium
+E103: 46205.0
+F103: 46205.0
+G103: 0
+H103: Task
+J103: Details of task here
+L103:  %
+M103:  
+N103:  
+O103:  
+B104: Complete
+C104: On Track 
+D104: Medium
+E104: 46205.0
+F104: 46205.0
+G104: 0
+H104: Task
+J104: Details of task here
+L104:  %
+M104:  
+N104:  
+O104:  
+B106: PROJECT DETAILS
+K106: DELIVERABLES
+M106: KPI
+B107: STATUS
+C107: RISK
+D107: PRIORITY
+E107: START DATE
+F107: END DATE
+G107: DURATION
+H107: TASK NAME
+I107: ASSIGNEE
+J107: DESCRIPTION
+K107: DELIVERABLE
+L107: % DONE
+M107: Baseline
+N107: Targeted
+O107: Actual
+B108: Project Name                                    - Project Owner
+L108: #DIV/0!
+M108: (KPI Name) As of (date)
+B109: On Hold
+C109: On Track 
+D109: High
+E109: 46205.0
+F109: 46205.0
+G109: 0
+H109: Task
+J109: Details of task here
+L109:  
+M109:  
+N109:  
+O109:  
+B110: Not Yet Started
+C110: On Track 
+D110: Low
+E110: 46205.0
+F110: 46205.0
+G110: 0
+H110: Task
+J110: Details of task here
+L110:  
+M110:  
+N110:  
+O110:  
+B111: In Progress
+C111: On Track 
+D111: Medium
+E111: 46205.0
+F111: 46205.0
+G111: 0
+H111: Task
+J111: Details of task here
+L111:  %
+M111:  
+N111:  
+O111:  
+B112: Complete
+C112: On Track 
+D112: Medium
+E112: 46205.0
+F112: 46205.0
+G112: 0
+H112: Task
+J112: Details of task here
+L112:  %
+M112:  
+N112:  
+O112:  
+B114: PROJECT DETAILS
+K114: DELIVERABLES
+M114: KPI
+B115: STATUS
+C115: RISK
+D115: PRIORITY
+E115: START DATE
+F115: END DATE
+G115: DURATION
+H115: TASK NAME
+I115: ASSIGNEE
+J115: DESCRIPTION
+K115: DELIVERABLE
+L115: % DONE
+M115: Baseline
+N115: Targeted
+O115: Actual
+B116: Project Name                                    - Project Owner
+L116: #DIV/0!
+M116: (KPI Name) As of (date)
+B117: On Hold
+C117: On Track 
+D117: High
+E117: 46205.0
+F117: 46205.0
+G117: 0
+H117: Task
+J117: Details of task here
+L117:  
+M117:  
+N117:  
+O117:  
+B118: Not Yet Started
+C118: On Track 
+D118: Low
+E118: 46205.0
+F118: 46205.0
+G118: 0
+H118: Task
+J118: Details of task here
+L118:  
+M118:  
+N118:  
+O118:  
+B119: In Progress
+C119: On Track 
+D119: Medium
+E119: 46205.0
+F119: 46205.0
+G119: 0
+H119: Task
+J119: Details of task here
+L119:  %
+M119:  
+N119:  
+O119:  
+B120: Complete
+C120: On Track 
+D120: Medium
+E120: 46205.0
+F120: 46205.0
+G120: 0
+H120: Task
+J120: Details of task here
+L120:  %
+M120:  
+N120:  
+O120:  
+B122: PROJECT DETAILS
+K122: DELIVERABLES
+M122: KPI
+B123: STATUS
+C123: RISK
+D123: PRIORITY
+E123: START DATE
+F123: END DATE
+G123: DURATION
+H123: TASK NAME
+I123: ASSIGNEE
+J123: DESCRIPTION
+K123: DELIVERABLE
+L123: % DONE
+M123: Baseline
+N123: Targeted
+O123: Actual
+B124: Project Name                                    - Project Owner
+L124: #DIV/0!
+M124: (KPI Name) As of (date)
+B125: On Hold
+C125: On Track 
+D125: High
+E125: 46205.0
+F125: 46205.0
+G125: 0
+H125: Task
+J125: Details of task here
+L125:  
+M125:  
+N125:  
+O125:  
+B126: Not Yet Started
+C126: On Track 
+D126: Low
+E126: 46205.0
+F126: 46205.0
+G126: 0
+H126: Task
+J126: Details of task here
+L126:  
+M126:  
+N126:  
+O126:  
+B127: In Progress
+C127: On Track 
+D127: Medium
+E127: 46205.0
+F127: 46205.0
+G127: 0
+H127: Task
+J127: Details of task here
+L127:  %
+M127:  
+N127:  
+O127:  
+B128: Complete
+C128: On Track 
+D128: Medium
+E128: 46205.0
+F128: 46205.0
+G128: 0
+H128: Task
+J128: Details of task here
+L128:  %
+M128:  
+N128:  
+O128:  
+B130: PROJECT DETAILS
+K130: DELIVERABLES
+M130: KPI
+B131: STATUS
+C131: RISK
+D131: PRIORITY
+E131: START DATE
+F131: END DATE
+G131: DURATION
+H131: TASK NAME
+I131: ASSIGNEE
+J131: DESCRIPTION
+K131: DELIVERABLE
+L131: % DONE
+M131: Baseline
+N131: Targeted
+O131: Actual
+B132: Project Name                                    - Project Owner
+L132: #DIV/0!
+M132: (KPI Name) As of (date)
+B133: On Hold
+C133: On Track 
+D133: High
+E133: 46205.0
+F133: 46205.0
+G133: 0
+H133: Task
+J133: Details of task here
+L133:  
+M133:  
+N133:  
+O133:  
+B134: Not Yet Started
+C134: On Track 
+D134: Low
+E134: 46205.0
+F134: 46205.0
+G134: 0
+H134: Task
+J134: Details of task here
+L134:  
+M134:  
+N134:  
+O134:  
+B135: In Progress
+C135: On Track 
+D135: Medium
+E135: 46205.0
+F135: 46205.0
+G135: 0
+H135: Task
+J135: Details of task here
+L135:  %
+M135:  
+N135:  
+O135:  
+B136: Complete
+C136: On Track 
+D136: Medium
+E136: 46205.0
+F136: 46205.0
+G136: 0
+H136: Task
+J136: Details of task here
+L136:  %
+M136:  
+N136:  
+O136:  
+B138: PROJECT DETAILS
+K138: DELIVERABLES
+M138: KPI
+B139: STATUS
+C139: RISK
+D139: PRIORITY
+E139: START DATE
+F139: END DATE
+G139: DURATION
+H139: TASK NAME
+I139: ASSIGNEE
+J139: DESCRIPTION
+K139: DELIVERABLE
+L139: % DONE
+M139: Baseline
+N139: Targeted
+O139: Actual
+B140: Project Name                                    - Project Owner
+L140: #DIV/0!
+M140: (KPI Name) As of (date)
+B141: On Hold
+C141: On Track 
+D141: High
+E141: 46205.0
+F141: 46205.0
+G141: 0
+H141: Task
+J141: Details of task here
+L141:  
+M141:  
+N141:  
+O141:  
+B142: Not Yet Started
+C142: On Track 
+D142: Low
+E142: 46205.0
+F142: 46205.0
+G142: 0
+H142: Task
+J142: Details of task here
+L142:  
+M142:  
+N142:  
+O142:  
+B143: In Progress
+C143: On Track 
+D143: Medium
+E143: 46205.0
+F143: 46205.0
+G143: 0
+H143: Task
+J143: Details of task here
+L143:  %
+M143:  
+N143:  
+O143:  
+B144: Complete
+C144: On Track 
+D144: Medium
+E144: 46205.0
+F144: 46205.0
+G144: 0
+H144: Task
+J144: Details of task here
+L144:  %
+M144:  
+N144:  
+O144:  
+B146: PROJECT DETAILS
+K146: DELIVERABLES
+M146: KPI
+B147: STATUS
+C147: RISK
+D147: PRIORITY
+E147: START DATE
+F147: END DATE
+G147: DURATION
+H147: TASK NAME
+I147: ASSIGNEE
+J147: DESCRIPTION
+K147: DELIVERABLE
+L147: % DONE
+M147: Baseline
+N147: Targeted
+O147: Actual
+B148: Project Name                                    - Project Owner
+L148: #DIV/0!
+M148: (KPI Name) As of (date)
+B149: On Hold
+C149: On Track 
+D149: High
+E149: 46205.0
+F149: 46205.0
+G149: 0
+H149: Task
+J149: Details of task here
+L149:  
+M149:  
+N149:  
+O149:  
+B150: Not Yet Started
+C150: On Track 
+D150: Low
+E150: 46205.0
+F150: 46205.0
+G150: 0
+H150: Task
+J150: Details of task here
+L150:  
+M150:  
+N150:  
+O150:  
+B151: In Progress
+C151: On Track 
+D151: Medium
+E151: 46205.0
+F151: 46205.0
+G151: 0
+H151: Task
+J151: Details of task here
+L151:  %
+M151:  
+N151:  
+O151:  
+B152: Complete
+C152: On Track 
+D152: Medium
+E152: 46205.0
+F152: 46205.0
+G152: 0
+H152: Task
+J152: Details of task here
+L152:  %
+M152:  
+N152:  
+O152:  
+B154: PROJECT DETAILS
+K154: DELIVERABLES
+M154: KPI
+B155: STATUS
+C155: RISK
+D155: PRIORITY
+E155: START DATE
+F155: END DATE
+G155: DURATION
+H155: TASK NAME
+I155: ASSIGNEE
+J155: DESCRIPTION
+K155: DELIVERABLE
+L155: % DONE
+M155: Baseline
+N155: Targeted
+O155: Actual
+B156: Project Name                                    - Project Owner
+L156: #DIV/0!
+M156: (KPI Name) As of (date)
+B157: On Hold
+C157: On Track 
+D157: High
+E157: 46205.0
+F157: 46205.0
+G157: 0
+H157: Task
+J157: Details of task here
+L157:  
+M157:  
+N157:  
+O157:  
+B158: Not Yet Started
+C158: On Track 
+D158: Low
+E158: 46205.0
+F158: 46205.0
+G158: 0
+H158: Task
+J158: Details of task here
+L158:  
+M158:  
+N158:  
+O158:  
+B159: In Progress
+C159: On Track 
+D159: Medium
+E159: 46205.0
+F159: 46205.0
+G159: 0
+H159: Task
+J159: Details of task here
+L159:  %
+M159:  
+N159:  
+O159:  
+B160: Complete
+C160: On Track 
+D160: Medium
+E160: 46205.0
+F160: 46205.0
+G160: 0
+H160: Task
+J160: Details of task here
+L160:  %
+M160:  
+N160:  
+O160:  
+B162: PROJECT DETAILS
+K162: DELIVERABLES
+M162: KPI
+B163: STATUS
+C163: RISK
+D163: PRIORITY
+E163: START DATE
+F163: END DATE
+G163: DURATION
+H163: TASK NAME
+I163: ASSIGNEE
+J163: DESCRIPTION
+K163: DELIVERABLE
+L163: % DONE
+M163: Baseline
+N163: Targeted
+O163: Actual
+B164: Project Name                                    - Project Owner
+L164: #DIV/0!
+M164: (KPI Name) As of (date)
+B165: On Hold
+C165: On Track 
+D165: High
+E165: 46205.0
+F165: 46205.0
+G165: 0
+H165: Task
+J165: Details of task here
+L165:  
+M165:  
+N165:  
+O165:  
+B166: Not Yet Started
+C166: On Track 
+D166: Low
+E166: 46205.0
+F166: 46205.0
+G166: 0
+H166: Task
+J166: Details of task here
+L166:  
+M166:  
+N166:  
+O166:  
+B167: In Progress
+C167: On Track 
+D167: Medium
+E167: 46205.0
+F167: 46205.0
+G167: 0
+H167: Task
+J167: Details of task here
+L167:  %
+M167:  
+N167:  
+O167:  
+B168: Complete
+C168: On Track 
+D168: Medium
+E168: 46205.0
+F168: 46205.0
+G168: 0
+H168: Task
+J168: Details of task here
+L168:  %
+M168:  
+N168:  
+O168:  
+B170: PROJECT DETAILS
+K170: DELIVERABLES
+M170: KPI
+B171: STATUS
+C171: RISK
+D171: PRIORITY
+E171: START DATE
+F171: END DATE
+G171: DURATION
+H171: TASK NAME
+I171: ASSIGNEE
+J171: DESCRIPTION
+K171: DELIVERABLE
+L171: % DONE
+M171: Baseline
+N171: Targeted
+O171: Actual
+B172: Project Name                                    - Project Owner
+L172: #DIV/0!
+M172: (KPI Name) As of (date)
+B173: On Hold
+C173: On Track 
+D173: High
+E173: 46205.0
+F173: 46205.0
+G173: 0
+H173: Task
+J173: Details of task here
+L173:  
+M173:  
+N173:  
+O173:  
+B174: Not Yet Started
+C174: On Track 
+D174: Low
+E174: 46205.0
+F174: 46205.0
+G174: 0
+H174: Task
+J174: Details of task here
+L174:  
+M174:  
+N174:  
+O174:  
+B175: In Progress
+C175: On Track 
+D175: Medium
+E175: 46205.0
+F175: 46205.0
+G175: 0
+H175: Task
+J175: Details of task here
+L175:  %
+M175:  
+N175:  
+O175:  
+B176: Complete
+C176: On Track 
+D176: Medium
+E176: 46205.0
+F176: 46205.0
+G176: 0
+H176: Task
+J176: Details of task here
+L176:  %
+M176:  
+N176:  
+O176:  
+B178: PROJECT DETAILS
+K178: DELIVERABLES
+M178: KPI
+B179: STATUS
+C179: RISK
+D179: PRIORITY
+E179: START DATE
+F179: END DATE
+G179: DURATION
+H179: TASK NAME
+I179: ASSIGNEE
+J179: DESCRIPTION
+K179: DELIVERABLE
+L179: % DONE
+M179: Baseline
+N179: Targeted
+O179: Actual
+B180: Project Name                                    - Project Owner
+L180: #DIV/0!
+M180: (KPI Name) As of (date)
+B181: On Hold
+C181: On Track 
+D181: High
+E181: 46205.0
+F181: 46205.0
+G181: 0
+H181: Task
+J181: Details of task here
+L181:  
+M181:  
+N181:  
+O181:  
+B182: Not Yet Started
+C182: On Track 
+D182: Low
+E182: 46205.0
+F182: 46205.0
+G182: 0
+H182: Task
+J182: Details of task here
+L182:  
+M182:  
+N182:  
+O182:  
+B183: In Progress
+C183: On Track 
+D183: Medium
+E183: 46205.0
+F183: 46205.0
+G183: 0
+H183: Task
+J183: Details of task here
+L183:  %
+M183:  
+N183:  
+O183:  
+B184: Complete
+C184: On Track 
+D184: Medium
+E184: 46205.0
+F184: 46205.0
+G184: 0
+H184: Task
+J184: Details of task here
+L184:  %
+M184:  
+N184:  
+O184:  
+B186: PROJECT DETAILS
+K186: DELIVERABLES
+M186: KPI
+B187: STATUS
+C187: RISK
+D187: PRIORITY
+E187: START DATE
+F187: END DATE
+G187: DURATION
+H187: TASK NAME
+I187: ASSIGNEE
+J187: DESCRIPTION
+K187: DELIVERABLE
+L187: % DONE
+M187: Baseline
+N187: Targeted
+O187: Actual
+B188: Project Name                                    - Project Owner
+L188: #DIV/0!
+M188: (KPI Name) As of (date)
+B189: On Hold
+C189: On Track 
+D189: High
+E189: 46205.0
+F189: 46205.0
+G189: 0
+H189: Task
+J189: Details of task here
+L189:  
+M189:  
+N189:  
+O189:  
+B190: Not Yet Started
+C190: On Track 
+D190: Low
+E190: 46205.0
+F190: 46205.0
+G190: 0
+H190: Task
+J190: Details of task here
+L190:  
+M190:  
+N190:  
+O190:  
+B191: In Progress
+C191: On Track 
+D191: Medium
+E191: 46205.0
+F191: 46205.0
+G191: 0
+H191: Task
+J191: Details of task here
+L191:  %
+M191:  
+N191:  
+O191:  
+B192: Complete
+C192: On Track 
+D192: Medium
+E192: 46205.0
+F192: 46205.0
+G192: 0
+H192: Task
+J192: Details of task here
+L192:  %
+M192:  
+N192:  
+O192:  
+B194: PROJECT DETAILS
+K194: DELIVERABLES
+M194: KPI
+B195: STATUS
+C195: RISK
+D195: PRIORITY
+E195: START DATE
+F195: END DATE
+G195: DURATION
+H195: TASK NAME
+I195: ASSIGNEE
+J195: DESCRIPTION
+K195: DELIVERABLE
+L195: % DONE
+M195: Baseline
+N195: Targeted
+O195: Actual
+B196: Project Name                                    - Project Owner
+L196: #DIV/0!
+M196: (KPI Name) As of (date)
+B197: On Hold
+C197: On Track 
+D197: High
+E197: 46205.0
+F197: 46205.0
+G197: 0
+H197: Task
+J197: Details of task here
+L197:  
+M197:  
+N197:  
+O197:  
+B198: Not Yet Started
+C198: On Track 
+D198: Low
+E198: 46205.0
+F198: 46205.0
+G198: 0
+H198: Task
+J198: Details of task here
+L198:  
+M198:  
+N198:  
+O198:  
+B199: In Progress
+C199: On Track 
+D199: Medium
+E199: 46205.0
+F199: 46205.0
+G199: 0
+H199: Task
+J199: Details of task here
+L199:  %
+M199:  
+N199:  
+O199:  
+B200: Complete
+C200: On Track 
+D200: Medium
+E200: 46205.0
+F200: 46205.0
+G200: 0
+H200: Task
+J200: Details of task here
+L200:  %
+M200:  
+N200:  
+O200:  
+B202: PROJECT DETAILS
+K202: DELIVERABLES
+M202: KPI
+B203: STATUS
+C203: RISK
+D203: PRIORITY
+E203: START DATE
+F203: END DATE
+G203: DURATION
+H203: TASK NAME
+I203: ASSIGNEE
+J203: DESCRIPTION
+K203: DELIVERABLE
+L203: % DONE
+M203: Baseline
+N203: Targeted
+O203: Actual
+B204: Project Name                                    - Project Owner
+L204: #DIV/0!
+M204: (KPI Name) As of (date)
+B205: On Hold
+C205: On Track 
+D205: High
+E205: 46205.0
+F205: 46205.0
+G205: 0
+H205: Task
+J205: Details of task here
+L205:  
+M205:  
+N205:  
+O205:  
+B206: Not Yet Started
+C206: On Track 
+D206: Low
+E206: 46205.0
+F206: 46205.0
+G206: 0
+H206: Task
+J206: Details of task here
+L206:  
+M206:  
+N206:  
+O206:  
+B207: In Progress
+C207: On Track 
+D207: Medium
+E207: 46205.0
+F207: 46205.0
+G207: 0
+H207: Task
+J207: Details of task here
+L207:  %
+M207:  
+N207:  
+O207:  
+B208: Complete
+C208: On Track 
+D208: Medium
+E208: 46205.0
+F208: 46205.0
+G208: 0
+H208: Task
+J208: Details of task here
+L208:  %
+M208:  
+N208:  
+O208:  

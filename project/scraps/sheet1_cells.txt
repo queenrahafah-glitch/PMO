@@ -1,0 +1,56 @@
+A1: 0
+D2: 1
+D4: 2
+H4: 3
+K4: 4
+D5: 5
+H5: 6
+D6: 7
+H6: 8
+D7: 9
+H7: 10
+H8: 11
+H9: 12
+C13: 13
+C16: Project Title
+D16: 15
+G16: Department
+H16: Status
+I16: Cost Savings (SAR)
+A17: 1.0
+C17: Reducing Inappropriate CT studies and minimizing radiation exposure 
+D17: 20
+G17: Radiology
+H17: On Going 
+I17: Pending in Data Collection Phase  
+A18: 2.0
+C18: Operational cost reduction in Mpox diagnosis: Lean approach 
+D18: 25
+G18: Infection control 
+H18: On Going 
+I18: 310005.0
+A19: 3.0
+C19: Accuracy in TB Cases
+D19: 25
+G19: Infection control 
+H19: On Going 
+I19: Pending in Calculating avoidant cost 
+A20: 4.0
+C20: Reducing Average Length of stay from 5.5 to 3.5 Days within 6 months At Al Iman General Hospital
+D20: 30
+G20: Inpatient dept
+H20: On Going 
+I20: 4341610.0
+A21: 5.0
+C21: FAST-Track Rehab: Reducing Admission Delays to < 1.5 days 
+
+D21: 33
+G21: Rehab 
+H21: Completed By 2025 DEC. 
+I21: 4373600.0
+A22: 6.0
+C22: 7.0
+C23: 8.0
+C24: 9.0
+C25: 10.0
+C26: 11.0

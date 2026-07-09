@@ -1,0 +1,56 @@
+C2: PROJECT TRACKING SHEET SUMMARY 
+C4: Total Projects
+G4: Strategic Projects
+J4: ROI
+C5: On Going
+G5: Improvement Projects
+C6: Planned
+G6: Cost Efficiency Projects
+C7: Delayed
+G7: Innovation Projects
+G8: Departments Engaged 
+G9:  
+B13: List of Cost Efficiency Projects 
+B16: N.
+C16: Project Title
+F16: Project Owner 
+G16: Department
+H16: Status
+I16: Cost Savings (SAR)
+B17: 1.0
+C17: Reducing Inappropriate CT studies and minimizing radiation exposure 
+F17: Dr. Ahmed Nafea
+G17: Radiology
+H17: On Going 
+I17: Pending in Data Collection Phase  
+B18: 2.0
+C18: Operational cost reduction in Mpox diagnosis: Lean approach 
+F18: Ms. Jawaher Aldabaan 
+G18: Infection control 
+H18: On Going 
+I18: 310005.0
+B19: 3.0
+C19: Accuracy in TB Cases
+F19: Ms. Jawaher Aldabaan 
+G19: Infection control 
+H19: On Going 
+I19: Pending in Calculating avoidant cost 
+B20: 4.0
+C20: Reducing Average Length of stay from 5.5 to 3.5 Days within 6 months At Al Iman General Hospital
+F20: Mr. Hani 
+G20: Inpatient dept
+H20: On Going 
+I20: 4341610.0
+B21: 5.0
+C21: FAST-Track Rehab: Reducing Admission Delays to < 1.5 days 
+
+F21: Dr. Enas Makawi
+G21: Rehab 
+H21: Completed By 2025 DEC. 
+I21: 4373600.0
+B22: 6.0
+B23: 7.0
+B24: 8.0
+B25: 9.0
+B26: 10.0
+B27: 11.0

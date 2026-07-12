@@ -59,19 +59,23 @@ export function parseCostEfficiency(rows: Row[]): CostEfficiencyProject[] {
   let statusCol = -1;
   let savingsCol = -1;
 
+  // Header cells are matched by substring, not equality: Google's gviz feed
+  // concatenates every header/banner row above the data into each column's
+  // label, so the "N." column arrives as "List of Cost Efficiency Projects N."
+  // and "Project Title" as "PROJECT TRACKING SHEET SUMMARY … Project Title".
   for (let r = 0; r < rows.length; r++) {
     const row = rows[r];
-    const no = colByLabel(row, (v) => v === 'n.');
-    const title = colByLabel(row, (v) => v === 'project title');
+    const no = colByLabel(row, (v) => /(^|\s)n\.$/.test(v));
+    const title = colByLabel(row, (v) => v.includes('project title'));
     if (no < 0 || title < 0) continue;
 
     headerIdx = r;
     noCol = no;
     titleCol = title;
-    ownerCol = colByLabel(row, (v) => v.startsWith('project owner'));
-    deptCol = colByLabel(row, (v) => v === 'department');
-    statusCol = colByLabel(row, (v) => v === 'status');
-    savingsCol = colByLabel(row, (v) => v.startsWith('cost savings'));
+    ownerCol = colByLabel(row, (v) => v.includes('owner'));
+    deptCol = colByLabel(row, (v) => v.includes('department'));
+    statusCol = colByLabel(row, (v) => v.includes('status'));
+    savingsCol = colByLabel(row, (v) => v.includes('savings'));
     break;
   }
   if (headerIdx === -1) return [];
@@ -121,25 +125,29 @@ interface HospitalCols {
 }
 
 function locateHospitalColumns(rows: Row[]): HospitalCols | null {
+  // Substring matching (see parseCostEfficiency): gviz concatenates the sheet's
+  // stacked header/legend rows into each column label, so "STATUS" can arrive as
+  // "PROJECTS TRACKING SHEET … PROJECT DETAILS STATUS". colByLabel returns the
+  // left-most match, which is the real data column rather than a far-right legend.
   for (const row of rows) {
-    const status = colByLabel(row, (v) => v === 'status');
-    const risk = colByLabel(row, (v) => v === 'risk');
-    const start = colByLabel(row, (v) => v === 'start date');
+    const status = colByLabel(row, (v) => v.includes('status'));
+    const risk = colByLabel(row, (v) => v.includes('risk'));
+    const start = colByLabel(row, (v) => v.includes('start date'));
     if (status < 0 || risk < 0 || start < 0) continue;
 
     return {
       status,
       risk,
       start,
-      priority: colByLabel(row, (v) => v === 'priority'),
-      end: colByLabel(row, (v) => v === 'end date'),
-      taskName: colByLabel(row, (v) => v === 'task name'),
-      assignee: colByLabel(row, (v) => v === 'assignee'),
-      description: colByLabel(row, (v) => v === 'description'),
-      deliverable: colByLabel(row, (v) => v === 'deliverable'),
-      baseline: colByLabel(row, (v) => v === 'baseline'),
-      target: colByLabel(row, (v) => v === 'targeted'),
-      actual: colByLabel(row, (v) => v === 'actual'),
+      priority: colByLabel(row, (v) => v.includes('priority')),
+      end: colByLabel(row, (v) => v.includes('end date')),
+      taskName: colByLabel(row, (v) => v.includes('task name')),
+      assignee: colByLabel(row, (v) => v.includes('assignee')),
+      description: colByLabel(row, (v) => v.includes('description')),
+      deliverable: colByLabel(row, (v) => v.includes('deliverable')),
+      baseline: colByLabel(row, (v) => v.includes('baseline')),
+      target: colByLabel(row, (v) => v.includes('targeted')),
+      actual: colByLabel(row, (v) => v.includes('actual')),
     };
   }
   return null;

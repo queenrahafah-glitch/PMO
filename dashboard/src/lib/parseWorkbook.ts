@@ -13,31 +13,25 @@ function isBlank(v: unknown): boolean {
 }
 
 function cell(row: Row | undefined, col: number): unknown {
-  return row ? row[col] : undefined;
+  return row && col >= 0 ? row[col] : undefined;
 }
 
-// Column indices (0-based) shared by the "Hospital Director Projects" sheet layout.
-const COL = {
-  TITLE_OR_STATUS: 1, // B
-  RISK: 2, // C
-  PRIORITY: 3, // D
-  START: 4, // E
-  END: 5, // F
-  TASK_NAME: 7, // H
-  ASSIGNEE: 8, // I
-  DESCRIPTION: 9, // J
-  DELIVERABLE: 10, // K
-  KPI_BASELINE: 13, // N
-  KPI_TARGET: 14, // O
-  KPI_ACTUAL: 15, // P
-} as const;
+// Find the first column in a row whose (trimmed, lower-cased) text matches.
+// Column layout is discovered from header labels rather than hard-coded indices,
+// so parsing stays correct no matter which absolute column each field lands in.
+// This matters because the two data sources disagree on column offset: the xlsx
+// path keeps an empty leading column A, while Google's gviz feed drops it.
+function colByLabel(row: Row, test: (v: string) => boolean): number {
+  for (let c = 0; c < row.length; c++) {
+    const v = s(cell(row, c)).toLowerCase();
+    if (v && test(v)) return c;
+  }
+  return -1;
+}
 
 function sheetToRows(wb: XLSX.WorkBook, sheetName: string): Row[] {
   const ws = wb.Sheets[sheetName];
   if (!ws) return [];
-  // Force the range to start at column A: sheets where column A is entirely
-  // empty report a !ref starting at B, which would otherwise shift every
-  // column index left by one.
   return XLSX.utils.sheet_to_json<Row>(ws, { header: 1, raw: true, defval: null, range: 'A1:W1200' });
 }
 
@@ -55,21 +49,44 @@ function toDate(v: unknown): Date | null {
 }
 
 // ---- Cost Efficiency Projects (from the "Project Tracking" summary sheet) ----
-function parseCostEfficiency(rows: Row[]): CostEfficiencyProject[] {
-  const headerIdx = rows.findIndex((r) => s(cell(r, 1)) === 'N.' && s(cell(r, 2)) === 'Project Title');
+// Exported for unit testing against both column offsets.
+export function parseCostEfficiency(rows: Row[]): CostEfficiencyProject[] {
+  let headerIdx = -1;
+  let noCol = -1;
+  let titleCol = -1;
+  let ownerCol = -1;
+  let deptCol = -1;
+  let statusCol = -1;
+  let savingsCol = -1;
+
+  for (let r = 0; r < rows.length; r++) {
+    const row = rows[r];
+    const no = colByLabel(row, (v) => v === 'n.');
+    const title = colByLabel(row, (v) => v === 'project title');
+    if (no < 0 || title < 0) continue;
+
+    headerIdx = r;
+    noCol = no;
+    titleCol = title;
+    ownerCol = colByLabel(row, (v) => v.startsWith('project owner'));
+    deptCol = colByLabel(row, (v) => v === 'department');
+    statusCol = colByLabel(row, (v) => v === 'status');
+    savingsCol = colByLabel(row, (v) => v.startsWith('cost savings'));
+    break;
+  }
   if (headerIdx === -1) return [];
 
   const projects: CostEfficiencyProject[] = [];
   for (let i = headerIdx + 1; i < rows.length; i++) {
     const row = rows[i];
-    const title = s(cell(row, 2));
+    const title = s(cell(row, titleCol));
     if (!title) break; // end of populated list
 
-    const no = Number(cell(row, 1)) || projects.length + 1;
-    const owner = s(cell(row, 5));
-    const dept = s(cell(row, 6));
-    const status = s(cell(row, 7));
-    const savingsRaw = cell(row, 8);
+    const no = Number(cell(row, noCol)) || projects.length + 1;
+    const owner = s(cell(row, ownerCol));
+    const dept = s(cell(row, deptCol));
+    const status = s(cell(row, statusCol));
+    const savingsRaw = cell(row, savingsCol);
 
     const savings = typeof savingsRaw === 'number' ? savingsRaw : null;
     const savingsNote = savings === null ? (s(savingsRaw) || '—') : null;
@@ -80,16 +97,57 @@ function parseCostEfficiency(rows: Row[]): CostEfficiencyProject[] {
 }
 
 // ---- Hospital Director Projects (from the "Hospital Director Projects" sheet) ----
-function isTitleRow(row: Row | undefined): boolean {
-  const b = cell(row, COL.TITLE_OR_STATUS);
-  const c = cell(row, COL.RISK);
-  return typeof b === 'string' && b.toLowerCase().includes('owner') && isBlank(c);
+interface HospitalCols {
+  status: number;
+  risk: number;
+  priority: number;
+  start: number;
+  end: number;
+  taskName: number;
+  assignee: number;
+  description: number;
+  deliverable: number;
+  baseline: number;
+  target: number;
+  actual: number;
 }
 
-function kpiTriplet(row: Row) {
-  const baselineRaw = cell(row, COL.KPI_BASELINE);
-  const targetRaw = cell(row, COL.KPI_TARGET);
-  const actualRaw = cell(row, COL.KPI_ACTUAL);
+function locateHospitalColumns(rows: Row[]): HospitalCols | null {
+  for (const row of rows) {
+    const status = colByLabel(row, (v) => v === 'status');
+    const risk = colByLabel(row, (v) => v === 'risk');
+    const start = colByLabel(row, (v) => v === 'start date');
+    if (status < 0 || risk < 0 || start < 0) continue;
+
+    return {
+      status,
+      risk,
+      start,
+      priority: colByLabel(row, (v) => v === 'priority'),
+      end: colByLabel(row, (v) => v === 'end date'),
+      taskName: colByLabel(row, (v) => v === 'task name'),
+      assignee: colByLabel(row, (v) => v === 'assignee'),
+      description: colByLabel(row, (v) => v === 'description'),
+      deliverable: colByLabel(row, (v) => v === 'deliverable'),
+      baseline: colByLabel(row, (v) => v === 'baseline'),
+      target: colByLabel(row, (v) => v === 'targeted'),
+      actual: colByLabel(row, (v) => v === 'actual'),
+    };
+  }
+  return null;
+}
+
+// A project title row carries the project name (with "- Project Owner: …") in the
+// STATUS column, with the RISK column left blank by the merged header cell.
+function isTitleRow(row: Row | undefined, cols: HospitalCols): boolean {
+  const title = s(cell(row, cols.status)).toLowerCase();
+  return title.includes('owner') && isBlank(cell(row, cols.risk));
+}
+
+function kpiTriplet(row: Row, cols: HospitalCols) {
+  const baselineRaw = cell(row, cols.baseline);
+  const targetRaw = cell(row, cols.target);
+  const actualRaw = cell(row, cols.actual);
 
   // A KPI row only carries real per-task data when Target or Actual is filled in;
   // otherwise the "Baseline" cell is just a stray KPI section label from the sheet's
@@ -101,17 +159,17 @@ function kpiTriplet(row: Row) {
   return { kpiBaseline: fmt(baselineRaw), kpiTarget: fmt(targetRaw), kpiActual: fmt(actualRaw) };
 }
 
-function parseTaskRow(row: Row): HospitalTask {
-  const status = s(cell(row, COL.TITLE_OR_STATUS));
-  const risk = s(cell(row, COL.RISK));
-  const priority = s(cell(row, COL.PRIORITY));
-  const start = toDate(cell(row, COL.START));
-  const end = toDate(cell(row, COL.END));
+function parseTaskRow(row: Row, cols: HospitalCols): HospitalTask {
+  const status = s(cell(row, cols.status));
+  const risk = s(cell(row, cols.risk));
+  const priority = s(cell(row, cols.priority));
+  const start = toDate(cell(row, cols.start));
+  const end = toDate(cell(row, cols.end));
 
-  const rawTaskName = s(cell(row, COL.TASK_NAME));
-  const rawDescription = s(cell(row, COL.DESCRIPTION));
-  const rawDeliverable = s(cell(row, COL.DELIVERABLE));
-  const assignee = s(cell(row, COL.ASSIGNEE));
+  const rawTaskName = s(cell(row, cols.taskName));
+  const rawDescription = s(cell(row, cols.description));
+  const rawDeliverable = s(cell(row, cols.deliverable));
+  const assignee = s(cell(row, cols.assignee));
 
   // When the sheet's own TASK NAME cell was never filled in (left as the "Task"
   // placeholder), fall back to the description column for the name instead —
@@ -133,52 +191,56 @@ function parseTaskRow(row: Row): HospitalTask {
     taskName,
     assignee,
     description,
-    ...kpiTriplet(row),
+    ...kpiTriplet(row, cols),
   };
 }
 
-function isPlaceholderTaskRow(row: Row): boolean {
-  const taskName = s(cell(row, COL.TASK_NAME));
-  const assignee = s(cell(row, COL.ASSIGNEE));
+function isPlaceholderTaskRow(row: Row, cols: HospitalCols): boolean {
+  const taskName = s(cell(row, cols.taskName));
+  const assignee = s(cell(row, cols.assignee));
   return (!taskName || taskName.toLowerCase() === 'task') && !assignee;
 }
 
-function parseHospitalDirectorProjects(rows: Row[]): HospitalProject[] {
+// Exported for unit testing against both column offsets.
+export function parseHospitalDirectorProjects(rows: Row[]): HospitalProject[] {
+  const cols = locateHospitalColumns(rows);
+  if (!cols) return [];
+
   const projects: HospitalProject[] = [];
   let i = 0;
   while (i < rows.length) {
-    if (!isTitleRow(rows[i])) {
+    if (!isTitleRow(rows[i], cols)) {
       i++;
       continue;
     }
     const titleRowIdx = i;
-    const titleRaw = s(cell(rows[i], COL.TITLE_OR_STATUS));
+    const titleRaw = s(cell(rows[i], cols.status));
     const [titlePart, ownerPart] = titleRaw.split(/-?\s*Project Owner:?/i);
     const title = s(titlePart);
     const owner = s(ownerPart) || 'Mr. Jahz Almotairy';
 
     let j = i + 1;
     const blockRows: Row[] = [];
-    while (j < rows.length && !isTitleRow(rows[j])) {
+    while (j < rows.length && !isTitleRow(rows[j], cols)) {
       // Real task rows always carry an actual start date; this also weeds out
       // the "PROJECT DETAILS" section label and repeated column-header rows
       // that sit between one project's tasks and the next project's title row.
-      if (cell(rows[j], COL.START) instanceof Date) blockRows.push(rows[j]);
+      if (cell(rows[j], cols.start) instanceof Date) blockRows.push(rows[j]);
       j++;
     }
 
-    const taskRows = blockRows.filter((r) => !isPlaceholderTaskRow(r));
+    const taskRows = blockRows.filter((r) => !isPlaceholderTaskRow(r, cols));
     const isTemplate = taskRows.length === 0 || title.toLowerCase() === 'project name';
 
     if (!isTemplate) {
-      const kpiLabelRow = [rows[titleRowIdx], ...blockRows].find((r) => !isBlank(cell(r, COL.KPI_BASELINE)));
-      const kpiLabel = kpiLabelRow ? s(cell(kpiLabelRow, COL.KPI_BASELINE)) : '—';
+      const kpiLabelRow = [rows[titleRowIdx], ...blockRows].find((r) => !isBlank(cell(r, cols.baseline)));
+      const kpiLabel = kpiLabelRow ? s(cell(kpiLabelRow, cols.baseline)) : '—';
 
       projects.push({
         title,
         owner,
         kpiLabel,
-        tasks: taskRows.map(parseTaskRow),
+        tasks: taskRows.map((r) => parseTaskRow(r, cols)),
       });
     }
 

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { CostEfficiencyTable } from './components/CostEfficiencyTable';
+import { DebugView } from './components/DebugView';
 import { HospitalDirectorAccordion } from './components/HospitalDirectorAccordion';
 import { StatusMixBar } from './components/StatusMixBar';
 import { SummaryCards } from './components/SummaryCards';
@@ -19,6 +20,13 @@ function loadData(): Promise<DashboardData> {
 const todayLabel = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
 
 export default function App() {
+  if (GOOGLE_SHEET_ID && new URLSearchParams(window.location.search).has('debug')) {
+    return <DebugView sheetId={GOOGLE_SHEET_ID} />;
+  }
+  return <Dashboard />;
+}
+
+function Dashboard() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState('');

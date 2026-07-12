@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { CostEfficiencyTable } from './components/CostEfficiencyTable';
 import { HospitalDirectorAccordion } from './components/HospitalDirectorAccordion';
 import { StatusMixBar } from './components/StatusMixBar';
@@ -17,18 +17,52 @@ function loadData(): Promise<DashboardData> {
 }
 
 const todayLabel = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
+const AUTO_REFRESH_MS = 60_000;
+
+function timeLabel(d: Date): string {
+  return d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+}
 
 export default function App() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState('');
   const [openIds, setOpenIds] = useState<Record<number, boolean>>({ 0: true });
+  const [updatedAt, setUpdatedAt] = useState<Date | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
+  const inFlight = useRef(false);
+
+  const refresh = useCallback(async () => {
+    if (inFlight.current) return;
+    inFlight.current = true;
+    setRefreshing(true);
+    try {
+      const next = await loadData();
+      setData(next);
+      setError(null);
+      setUpdatedAt(new Date());
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      inFlight.current = false;
+      setRefreshing(false);
+    }
+  }, []);
 
   useEffect(() => {
-    loadData()
-      .then(setData)
-      .catch((e: Error) => setError(e.message));
-  }, []);
+    refresh();
+    // Poll for sheet edits while the page is open, and immediately re-check when
+    // the tab regains focus (e.g. after switching to the sheet to make an edit).
+    const timer = window.setInterval(refresh, AUTO_REFRESH_MS);
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') refresh();
+    };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => {
+      window.clearInterval(timer);
+      document.removeEventListener('visibilitychange', onVisible);
+    };
+  }, [refresh]);
 
   const filteredCostEff = useMemo(
     () => (data ? filterByQuery(data.costEfficiency, query, costEffSearchText) : []),
@@ -42,7 +76,7 @@ export default function App() {
   const summaryCards = useMemo(() => (data ? buildSummaryCards(data) : []), [data]);
   const statusMix = useMemo(() => (data ? buildStatusMix(data.hospitalDirector) : []), [data]);
 
-  if (error) {
+  if (error && !data) {
     return (
       <div className="state-screen state-screen--error">
         Couldn't load the tracking sheet. · تعذر تحميل ملف التتبع
@@ -60,7 +94,14 @@ export default function App() {
 
   return (
     <div className="dashboard">
-      <TopBar query={query} onQueryChange={setQuery} todayLabel={todayLabel} />
+      <TopBar
+        query={query}
+        onQueryChange={setQuery}
+        todayLabel={todayLabel}
+        updatedAt={updatedAt ? timeLabel(updatedAt) : null}
+        refreshing={refreshing}
+        onRefresh={refresh}
+      />
       <SummaryCards cards={summaryCards} />
       <StatusMixBar segments={statusMix} />
       <CostEfficiencyTable projects={filteredCostEff} count={data.costEfficiency.length} savingsLabel={savingsLabel} />

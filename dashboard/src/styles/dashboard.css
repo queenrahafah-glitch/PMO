@@ -61,6 +61,46 @@ input::placeholder {
   font-size: 14px;
   color: oklch(85% 0.03 255);
   margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-inline-start: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.refresh-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.22);
+}
+.refresh-btn:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+.refresh-icon {
+  font-size: 14px;
+  line-height: 1;
+  display: inline-block;
+}
+.refresh-icon.spinning {
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 .search-wrap {
   position: relative;

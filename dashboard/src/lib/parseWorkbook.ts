@@ -52,49 +52,52 @@ function toDate(v: unknown): Date | null {
 // Exported for unit testing against both column offsets.
 export function parseCostEfficiency(rows: Row[]): CostEfficiencyProject[] {
   let headerIdx = -1;
-  let noCol = -1;
   let titleCol = -1;
   let ownerCol = -1;
   let deptCol = -1;
   let statusCol = -1;
   let savingsCol = -1;
 
-  // Header cells are matched by substring, not equality: Google's gviz feed
-  // concatenates every header/banner row above the data into each column's
-  // label, so the "N." column arrives as "List of Cost Efficiency Projects N."
-  // and "Project Title" as "PROJECT TRACKING SHEET SUMMARY … Project Title".
+  // Detect columns from headers that live in TEXT columns only. Google's gviz
+  // feed type-casts each column and nulls out any value that doesn't fit — so
+  // the "N." header (its column is all numbers) comes back empty and can't be
+  // matched. "Project Title", "Project Owner", etc. sit in text columns and
+  // survive, so key off those instead. Substring match, since spacing/case vary.
   for (let r = 0; r < rows.length; r++) {
     const row = rows[r];
-    const no = colByLabel(row, (v) => /(^|\s)n\.$/.test(v));
     const title = colByLabel(row, (v) => v.includes('project title'));
-    if (no < 0 || title < 0) continue;
+    const owner = colByLabel(row, (v) => v.includes('owner'));
+    if (title < 0 || owner < 0) continue;
 
     headerIdx = r;
-    noCol = no;
     titleCol = title;
-    ownerCol = colByLabel(row, (v) => v.includes('owner'));
+    ownerCol = owner;
     deptCol = colByLabel(row, (v) => v.includes('department'));
     statusCol = colByLabel(row, (v) => v.includes('status'));
     savingsCol = colByLabel(row, (v) => v.includes('savings'));
+    // The "Cost Savings (SAR)" header also sits in a number column and is
+    // nulled by type-casting; it comes right after Status, so fall back to that.
+    if (savingsCol < 0 && statusCol >= 0) savingsCol = statusCol + 1;
     break;
   }
   if (headerIdx === -1) return [];
 
-  // A project row is any row carrying a numbered sequence value in the "N."
-  // column together with a title. Scanning by this signature (rather than
-  // assuming projects sit immediately below the header) tolerates the blank
-  // and summary rows that separate the header from the data — which is exactly
-  // what happens once Google's feed lifts the header row out into labels.
+  // The sequence number sits in the column immediately left of the title. Its
+  // header text is nulled by type-casting, but the per-row numbers survive.
+  const noCol = titleCol - 1;
+
+  // A project row has both a title and an owner; that pairing distinguishes real
+  // projects from the summary/banner rows (which fill the title column but leave
+  // the owner column empty) without relying on the nulled "N." header.
   const projects: CostEfficiencyProject[] = [];
   for (let i = 0; i < rows.length; i++) {
     if (i === headerIdx) continue;
     const row = rows[i];
-    const no = Number(cell(row, noCol));
-    if (!Number.isFinite(no) || no <= 0) continue;
     const title = s(cell(row, titleCol));
-    if (!title) continue;
-
     const owner = s(cell(row, ownerCol));
+    if (!title || !owner) continue;
+
+    const no = Number(cell(row, noCol)) || projects.length + 1;
     const dept = s(cell(row, deptCol));
     const status = s(cell(row, statusCol));
     const savingsRaw = cell(row, savingsCol);
@@ -125,23 +128,29 @@ interface HospitalCols {
 }
 
 function locateHospitalColumns(rows: Row[]): HospitalCols | null {
-  // Substring matching (see parseCostEfficiency): gviz concatenates the sheet's
-  // stacked header/legend rows into each column label, so "STATUS" can arrive as
-  // "PROJECTS TRACKING SHEET … PROJECT DETAILS STATUS". colByLabel returns the
-  // left-most match, which is the real data column rather than a far-right legend.
+  // Detect the two date columns (START DATE / END DATE) by where actual Date
+  // values land, not by their headers — gviz type-casts those columns to date
+  // and nulls the header text, so "START DATE"/"END DATE" can't be matched.
+  const width = rows.reduce((m, r) => Math.max(m, r.length), 0);
+  const dateCols: number[] = [];
+  for (let c = 0; c < width; c++) {
+    if (rows.some((r) => cell(r, c) instanceof Date)) dateCols.push(c);
+  }
+
+  // The header row is found via its TEXT columns, which survive type-casting.
   for (const row of rows) {
     const status = colByLabel(row, (v) => v.includes('status'));
     const risk = colByLabel(row, (v) => v.includes('risk'));
-    const start = colByLabel(row, (v) => v.includes('start date'));
-    if (status < 0 || risk < 0 || start < 0) continue;
+    const taskName = colByLabel(row, (v) => v.includes('task name'));
+    if (status < 0 || risk < 0 || taskName < 0) continue;
 
     return {
       status,
       risk,
-      start,
+      taskName,
+      start: dateCols[0] ?? -1,
+      end: dateCols[1] ?? -1,
       priority: colByLabel(row, (v) => v.includes('priority')),
-      end: colByLabel(row, (v) => v.includes('end date')),
-      taskName: colByLabel(row, (v) => v.includes('task name')),
       assignee: colByLabel(row, (v) => v.includes('assignee')),
       description: colByLabel(row, (v) => v.includes('description')),
       deliverable: colByLabel(row, (v) => v.includes('deliverable')),

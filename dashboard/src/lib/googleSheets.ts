@@ -34,10 +34,12 @@ export async function fetchGoogleSheetRows(sheetId: string, sheetName: string): 
   // consumes the first row(s) as column headers, dropping real content. The
   // downstream parser discovers column positions from label text itself, so
   // the exact column offset gviz returns does not matter.
+  // The timestamp param + no-store defeat browser/CDN caching so edits made in
+  // the sheet show up on the next page load instead of a stale cached response.
   const url =
     `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq` +
-    `?tqx=out:json&headers=0&sheet=${encodeURIComponent(sheetName)}`;
-  const res = await fetch(url);
+    `?tqx=out:json&headers=0&sheet=${encodeURIComponent(sheetName)}&_=${Date.now()}`;
+  const res = await fetch(url, { cache: 'no-store' });
   if (!res.ok) {
     throw new Error(
       `Could not load sheet "${sheetName}" (${res.status}). Make sure the sheet's sharing is set to "Anyone with the link – Viewer".`,

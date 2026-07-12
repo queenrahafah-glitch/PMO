@@ -76,23 +76,31 @@ export function parseCostEfficiency(rows: Row[]): CostEfficiencyProject[] {
   }
   if (headerIdx === -1) return [];
 
+  // A project row is any row carrying a numbered sequence value in the "N."
+  // column together with a title. Scanning by this signature (rather than
+  // assuming projects sit immediately below the header) tolerates the blank
+  // and summary rows that separate the header from the data — which is exactly
+  // what happens once Google's feed lifts the header row out into labels.
   const projects: CostEfficiencyProject[] = [];
-  for (let i = headerIdx + 1; i < rows.length; i++) {
+  for (let i = 0; i < rows.length; i++) {
+    if (i === headerIdx) continue;
     const row = rows[i];
+    const no = Number(cell(row, noCol));
+    if (!Number.isFinite(no) || no <= 0) continue;
     const title = s(cell(row, titleCol));
-    if (!title) break; // end of populated list
+    if (!title) continue;
 
-    const no = Number(cell(row, noCol)) || projects.length + 1;
     const owner = s(cell(row, ownerCol));
     const dept = s(cell(row, deptCol));
     const status = s(cell(row, statusCol));
     const savingsRaw = cell(row, savingsCol);
 
     const savings = typeof savingsRaw === 'number' ? savingsRaw : null;
-    const savingsNote = savings === null ? (s(savingsRaw) || '—') : null;
+    const savingsNote = savings === null ? (s(savingsRaw) || 'Pending') : null;
 
     projects.push({ no, title, owner, dept, status, savings, savingsNote });
   }
+  projects.sort((a, b) => a.no - b.no);
   return projects;
 }
 

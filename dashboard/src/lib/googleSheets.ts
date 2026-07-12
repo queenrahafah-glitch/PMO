@@ -7,7 +7,7 @@ interface GvizCell {
 
 interface GvizResponse {
   table: {
-    cols: { id: string }[];
+    cols: { id: string; label?: string }[];
     rows: { c: (GvizCell | null)[] }[];
   };
 }
@@ -45,7 +45,8 @@ export async function fetchGoogleSheetRows(sheetId: string, sheetName: string): 
   }
   const data = unwrapGvizResponse(await res.text());
   const width = data.table.cols.length;
-  return data.table.rows.map((row) => {
+
+  const dataRows = data.table.rows.map((row) => {
     const cells: unknown[] = new Array(width).fill(null);
     for (let i = 0; i < width; i++) {
       const c = row.c[i];
@@ -53,4 +54,15 @@ export async function fetchGoogleSheetRows(sheetId: string, sheetName: string): 
     }
     return cells;
   });
+
+  // gviz auto-detects one header row and lifts it into cols[].label, dropping
+  // it from the data rows — and it type-casts each column, so header text
+  // sitting in a date/number column comes back as null in the remaining rows.
+  // The net effect is that the sheet's real header row ("N. | Project Title …",
+  // "STATUS | RISK | START DATE …") vanishes from the data entirely. The
+  // downstream parser locates fields by that header text, so re-materialize the
+  // detected header as a leading row from the column labels.
+  const labelRow: unknown[] = data.table.cols.map((c) => (c.label && c.label.trim() ? c.label : null));
+  if (labelRow.some((v) => v != null)) return [labelRow, ...dataRows];
+  return dataRows;
 }

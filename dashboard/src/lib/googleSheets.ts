@@ -52,7 +52,13 @@ export async function fetchGoogleSheetRows(sheetId: string, sheetName: string): 
     const cells: unknown[] = new Array(width).fill(null);
     for (let i = 0; i < width; i++) {
       const c = row.c[i];
-      if (c) cells[i] = parseGvizValue(c.v);
+      if (!c) continue;
+      // gviz type-casts each column and nulls the typed value (v) of any cell
+      // that doesn't fit the column type — e.g. a numeric KPI in a mostly-text
+      // column. The formatted value (f) still holds the original display text,
+      // so fall back to it to keep those values from vanishing.
+      const raw = c.v != null ? c.v : (c.f ?? null);
+      cells[i] = parseGvizValue(raw);
     }
     return cells;
   });

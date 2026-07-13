@@ -73,51 +73,66 @@ export function HospitalDirectorAccordion({ projects, count, taskCount, openIds,
               </button>
 
               {isOpen && (
-                <div className="task-table-wrap">
-                  <div className="task-table-header">
-                    <div>Status</div>
-                    <div>Risk</div>
-                    <div>Priority</div>
-                    <div>Task</div>
-                    <div>Assignee</div>
-                    <div>Description</div>
-                    <div>Blockers · المعوقات</div>
-                    <div>KPI (Baseline → Target → Actual)</div>
-                  </div>
-                  {proj.tasks.map((t, ti) => {
-                    const sc = taskStatusColor(t.status);
-                    const rc = riskColor(t.risk);
-                    const pc = priorityColor(t.priority);
-                    return (
-                      <div className="task-row" key={ti}>
-                        <div>
-                          <span className="badge badge--sm" style={{ '--badge-bg': sc.bg, '--badge-color': sc.color } as CSSProperties}>
-                            {t.status}
-                          </span>
-                        </div>
-                        <div>
-                          <span className="badge badge--sm" style={{ '--badge-bg': rc.bg, '--badge-color': rc.color } as CSSProperties}>
-                            {t.risk}
-                          </span>
-                        </div>
-                        <div>
-                          <span className="badge badge--sm" style={{ '--badge-bg': pc.bg, '--badge-color': pc.color } as CSSProperties}>
-                            {t.priority}
-                          </span>
-                        </div>
-                        <div className="task-name" dir="auto">{t.taskName}</div>
-                        <div className="task-assignee" dir="auto">{t.assignee}</div>
-                        <div>
-                          <div className="task-desc" dir="auto">{t.description}</div>
-                          <div className="task-daterange">{formatDate(t.start)} → {formatDate(t.end)}</div>
-                        </div>
-                        <div className="task-blockers" dir="auto">{t.blockers || '—'}</div>
-                        <div className="task-kpi" dir="auto">
-                          {t.kpiBaseline} → {t.kpiTarget} → {t.kpiActual}
-                        </div>
+                <div className="project-details">
+                  {proj.kpis.length > 0 && (
+                    <div className="kpi-panel">
+                      <div className="kpi-panel-title">
+                        KPIs <span dir="rtl">· المؤشرات</span>
+                        <span className="kpi-cols">Baseline → Target → Actual</span>
                       </div>
-                    );
-                  })}
+                      {proj.kpis.map((k, ki) => (
+                        <div className="kpi-row" key={ki}>
+                          <div className="kpi-name" dir="auto">{k.name || '—'}</div>
+                          <div className="kpi-values" dir="auto">
+                            {k.baseline} → {k.target} → {k.actual}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="task-table-wrap">
+                    <div className="task-table-header">
+                      <div>Status</div>
+                      <div>Risk</div>
+                      <div>Priority</div>
+                      <div>Task</div>
+                      <div>Assignee</div>
+                      <div>Description</div>
+                      <div>Blockers · المعوقات</div>
+                    </div>
+                    {proj.tasks.map((t, ti) => {
+                      const sc = taskStatusColor(t.status);
+                      const rc = riskColor(t.risk);
+                      const pc = priorityColor(t.priority);
+                      return (
+                        <div className="task-row" key={ti}>
+                          <div>
+                            <span className="badge badge--sm" style={{ '--badge-bg': sc.bg, '--badge-color': sc.color } as CSSProperties}>
+                              {t.status}
+                            </span>
+                          </div>
+                          <div>
+                            <span className="badge badge--sm" style={{ '--badge-bg': rc.bg, '--badge-color': rc.color } as CSSProperties}>
+                              {t.risk}
+                            </span>
+                          </div>
+                          <div>
+                            <span className="badge badge--sm" style={{ '--badge-bg': pc.bg, '--badge-color': pc.color } as CSSProperties}>
+                              {t.priority}
+                            </span>
+                          </div>
+                          <div className="task-name" dir="auto">{t.taskName}</div>
+                          <div className="task-assignee" dir="auto">{t.assignee}</div>
+                          <div>
+                            <div className="task-desc" dir="auto">{t.description}</div>
+                            <div className="task-daterange">{formatDate(t.start)} → {formatDate(t.end)}</div>
+                          </div>
+                          <div className="task-blockers" dir="auto">{t.blockers || '—'}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
             </div>

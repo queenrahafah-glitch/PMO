@@ -1,6 +1,6 @@
 import * as XLSX from 'xlsx';
 import { fetchGoogleSheetRows } from './googleSheets';
-import type { CostEfficiencyProject, DashboardData, HospitalProject, HospitalTask } from './types';
+import type { CostEfficiencyProject, DashboardData, HospitalProject, HospitalTask, KpiEntry } from './types';
 
 type Row = unknown[];
 
@@ -171,15 +171,32 @@ function isTitleRow(row: Row | undefined, cols: HospitalCols): boolean {
   return title.includes('owner') && isBlank(cell(row, cols.risk));
 }
 
-function kpiTriplet(row: Row, cols: HospitalCols) {
-  // Show whatever the Baseline/Target/Actual cells hold, so every KPI the user
-  // enters in the sheet appears (blank cells render as an em dash).
-  const fmt = (v: unknown) => (isBlank(v) ? '—' : s(v));
-  return {
-    kpiBaseline: fmt(cell(row, cols.baseline)),
-    kpiTarget: fmt(cell(row, cols.target)),
-    kpiActual: fmt(cell(row, cols.actual)),
-  };
+// The KPI columns form their own mini-table that is NOT aligned row-for-row with
+// the tasks: a KPI's name sits on one row (text in Baseline, no Target/Actual)
+// and its figures land on the following row. Pair each name row with the next
+// values row so every KPI reads as one line — name + baseline → target → actual —
+// instead of the name and its results being split across two different tasks.
+function extractKpis(blockRows: (Row | undefined)[], cols: HospitalCols): KpiEntry[] {
+  const kpis: KpiEntry[] = [];
+  let pendingName = '';
+
+  for (const row of blockRows) {
+    const baseline = s(cell(row, cols.baseline));
+    const target = s(cell(row, cols.target));
+    const actual = s(cell(row, cols.actual));
+    const hasValues = target !== '' || actual !== '';
+
+    if (hasValues) {
+      kpis.push({ name: pendingName, baseline: baseline || '—', target: target || '—', actual: actual || '—' });
+      pendingName = '';
+    } else if (baseline !== '') {
+      // A lone Baseline cell is a KPI label; flush any previous unpaired label.
+      if (pendingName) kpis.push({ name: pendingName, baseline: '—', target: '—', actual: '—' });
+      pendingName = baseline;
+    }
+  }
+  if (pendingName) kpis.push({ name: pendingName, baseline: '—', target: '—', actual: '—' });
+  return kpis;
 }
 
 function parseTaskRow(row: Row, cols: HospitalCols): HospitalTask {
@@ -215,7 +232,6 @@ function parseTaskRow(row: Row, cols: HospitalCols): HospitalTask {
     assignee,
     description,
     blockers: s(cell(row, cols.blockers)),
-    ...kpiTriplet(row, cols),
   };
 }
 
@@ -257,13 +273,17 @@ export function parseHospitalDirectorProjects(rows: Row[]): HospitalProject[] {
     const isTemplate = taskRows.length === 0 || title.toLowerCase() === 'project name';
 
     if (!isTemplate) {
-      const kpiLabelRow = [rows[titleRowIdx], ...blockRows].find((r) => !isBlank(cell(r, cols.baseline)));
-      const kpiLabel = kpiLabelRow ? s(cell(kpiLabelRow, cols.baseline)) : '—';
+      // Pull KPIs from the title row plus the task rows only (never the
+      // between-block header rows), so the "KPI As of…"/"Baseline Targeted
+      // Actual" label rows don't get mistaken for real KPI entries.
+      const kpis = extractKpis([rows[titleRowIdx], ...blockRows], cols);
+      const kpiLabel = kpis[0]?.name || '—';
 
       projects.push({
         title,
         owner,
         kpiLabel,
+        kpis,
         tasks: taskRows.map((r) => parseTaskRow(r, cols)),
       });
     }

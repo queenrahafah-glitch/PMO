@@ -18,15 +18,20 @@ export interface HospitalTask {
   assignee: string;
   description: string;
   blockers: string;
-  kpiBaseline: string;
-  kpiTarget: string;
-  kpiActual: string;
+}
+
+export interface KpiEntry {
+  name: string;
+  baseline: string;
+  target: string;
+  actual: string;
 }
 
 export interface HospitalProject {
   title: string;
   owner: string;
   kpiLabel: string;
+  kpis: KpiEntry[];
   tasks: HospitalTask[];
 }
 

@@ -81,6 +81,7 @@ export function HospitalDirectorAccordion({ projects, count, taskCount, openIds,
                     <div>Task</div>
                     <div>Assignee</div>
                     <div>Description</div>
+                    <div>Blockers · المعوقات</div>
                     <div>KPI (Baseline → Target → Actual)</div>
                   </div>
                   {proj.tasks.map((t, ti) => {
@@ -110,6 +111,7 @@ export function HospitalDirectorAccordion({ projects, count, taskCount, openIds,
                           <div className="task-desc" dir="auto">{t.description}</div>
                           <div className="task-daterange">{formatDate(t.start)} → {formatDate(t.end)}</div>
                         </div>
+                        <div className="task-blockers" dir="auto">{t.blockers || '—'}</div>
                         <div className="task-kpi" dir="auto">
                           {t.kpiBaseline} → {t.kpiTarget} → {t.kpiActual}
                         </div>

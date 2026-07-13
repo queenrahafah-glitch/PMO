@@ -17,6 +17,7 @@ export interface HospitalTask {
   taskName: string;
   assignee: string;
   description: string;
+  blockers: string;
   kpiBaseline: string;
   kpiTarget: string;
   kpiActual: string;

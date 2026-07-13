@@ -122,6 +122,7 @@ interface HospitalCols {
   assignee: number;
   description: number;
   deliverable: number;
+  blockers: number;
   baseline: number;
   target: number;
   actual: number;
@@ -154,6 +155,7 @@ function locateHospitalColumns(rows: Row[]): HospitalCols | null {
       assignee: colByLabel(row, (v) => v.includes('assignee')),
       description: colByLabel(row, (v) => v.includes('description')),
       deliverable: colByLabel(row, (v) => v.includes('deliverable')),
+      blockers: colByLabel(row, (v) => v.includes('blocker')),
       baseline: colByLabel(row, (v) => v.includes('baseline')),
       target: colByLabel(row, (v) => v.includes('targeted')),
       actual: colByLabel(row, (v) => v.includes('actual')),
@@ -216,6 +218,7 @@ function parseTaskRow(row: Row, cols: HospitalCols): HospitalTask {
     taskName,
     assignee,
     description,
+    blockers: s(cell(row, cols.blockers)),
     ...kpiTriplet(row, cols),
   };
 }

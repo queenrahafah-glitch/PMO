@@ -416,8 +416,8 @@ input::placeholder {
 .task-table-header,
 .task-row {
   display: grid;
-  grid-template-columns: 1fr 0.7fr 0.7fr 1.6fr 1.2fr 1.8fr 1.6fr;
-  min-width: 1000px;
+  grid-template-columns: 1fr 0.7fr 0.7fr 1.6fr 1.2fr 1.8fr 1.3fr 1.6fr;
+  min-width: 1180px;
   gap: 0;
 }
 .task-table-header {
@@ -456,6 +456,11 @@ input::placeholder {
   color: oklch(58% 0.02 255);
   font-size: 11.5px;
   margin-top: 4px;
+}
+.task-blockers {
+  color: oklch(48% 0.02 255);
+  white-space: pre-line;
+  line-height: 1.5;
 }
 .task-kpi {
   color: oklch(40% 0.02 255);

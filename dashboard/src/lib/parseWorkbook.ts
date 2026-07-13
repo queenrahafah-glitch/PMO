@@ -172,18 +172,14 @@ function isTitleRow(row: Row | undefined, cols: HospitalCols): boolean {
 }
 
 function kpiTriplet(row: Row, cols: HospitalCols) {
-  const baselineRaw = cell(row, cols.baseline);
-  const targetRaw = cell(row, cols.target);
-  const actualRaw = cell(row, cols.actual);
-
-  // A KPI row only carries real per-task data when Target or Actual is filled in;
-  // otherwise the "Baseline" cell is just a stray KPI section label from the sheet's
-  // stacked mini-tables, not a value that belongs to this task.
-  if (isBlank(targetRaw) && isBlank(actualRaw)) {
-    return { kpiBaseline: '—', kpiTarget: '—', kpiActual: '—' };
-  }
+  // Show whatever the Baseline/Target/Actual cells hold, so every KPI the user
+  // enters in the sheet appears (blank cells render as an em dash).
   const fmt = (v: unknown) => (isBlank(v) ? '—' : s(v));
-  return { kpiBaseline: fmt(baselineRaw), kpiTarget: fmt(targetRaw), kpiActual: fmt(actualRaw) };
+  return {
+    kpiBaseline: fmt(cell(row, cols.baseline)),
+    kpiTarget: fmt(cell(row, cols.target)),
+    kpiActual: fmt(cell(row, cols.actual)),
+  };
 }
 
 function parseTaskRow(row: Row, cols: HospitalCols): HospitalTask {

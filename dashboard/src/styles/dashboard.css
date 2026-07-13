@@ -534,6 +534,16 @@ input::placeholder {
   color: oklch(60% 0.02 255);
   text-align: center;
 }
+.footer-credit {
+  max-width: 1320px;
+  margin: 16px auto 0;
+  padding: 16px 40px 0;
+  border-top: 1px solid oklch(92% 0.006 255);
+  font-size: 13px;
+  font-weight: 600;
+  color: oklch(45% 0.02 255);
+  text-align: center;
+}
 .state-screen {
   min-height: 100vh;
   display: flex;

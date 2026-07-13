@@ -439,6 +439,16 @@ input::placeholder {
   font-size: 11px;
   padding: 4px 9px;
 }
+/* Keep every task cell left-aligned so its content sits directly under its
+   (left-aligned) column header, instead of Arabic text drifting to the right
+   edge of the cell and looking detached from the header. */
+.task-name,
+.task-assignee,
+.task-desc,
+.task-blockers,
+.task-kpi {
+  text-align: left;
+}
 .task-name {
   color: oklch(30% 0.02 255);
   font-weight: 600;
@@ -453,6 +463,7 @@ input::placeholder {
 .task-daterange {
   direction: ltr;
   unicode-bidi: isolate;
+  text-align: left;
   color: oklch(58% 0.02 255);
   font-size: 11.5px;
   margin-top: 4px;

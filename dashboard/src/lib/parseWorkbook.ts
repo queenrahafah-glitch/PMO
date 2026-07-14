@@ -48,6 +48,17 @@ function toDate(v: unknown): Date | null {
   return new Date(utcDays * 86400 * 1000);
 }
 
+// Parse a monetary amount from either a number or a numeric string (gviz may
+// return either depending on the column's inferred type). Non-numeric text
+// (e.g. a "Pending…" note) returns null.
+function parseAmount(v: unknown): number | null {
+  if (typeof v === 'number') return Number.isFinite(v) ? v : null;
+  const cleaned = s(v).replace(/[,\s]/g, '');
+  if (cleaned === '') return null;
+  const n = Number(cleaned);
+  return Number.isFinite(n) ? n : null;
+}
+
 // ---- Cost Efficiency Projects (from the "Project Tracking" summary sheet) ----
 // Exported for unit testing against both column offsets.
 export function parseCostEfficiency(rows: Row[]): CostEfficiencyProject[] {
@@ -100,10 +111,13 @@ export function parseCostEfficiency(rows: Row[]): CostEfficiencyProject[] {
     const no = Number(cell(row, noCol)) || projects.length + 1;
     const dept = s(cell(row, deptCol));
     const status = s(cell(row, statusCol));
-    const savingsRaw = cell(row, savingsCol);
 
-    const savings = typeof savingsRaw === 'number' ? savingsRaw : null;
-    const savingsNote = savings === null ? (s(savingsRaw) || 'Pending') : null;
+    // Parse savings as a number even when it arrives as a string. gviz type-casts
+    // the whole column, so once enough rows hold text ("Pending…") the numeric
+    // amounts come back as strings — reading only `typeof === 'number'` would then
+    // zero out the total. A non-numeric cell (a "Pending…" note) stays null.
+    const savings = parseAmount(cell(row, savingsCol));
+    const savingsNote = savings === null ? (s(cell(row, savingsCol)) || 'Pending') : null;
 
     projects.push({ no, title, owner, dept, status, savings, savingsNote });
   }

@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { CostEfficiencyTable } from './components/CostEfficiencyTable';
-import { DebugView } from './components/DebugView';
 import { HospitalDirectorAccordion } from './components/HospitalDirectorAccordion';
 import { StatusMixBar } from './components/StatusMixBar';
 import { SummaryCards } from './components/SummaryCards';
@@ -25,13 +24,6 @@ function timeLabel(d: Date): string {
 }
 
 export default function App() {
-  if (GOOGLE_SHEET_ID && new URLSearchParams(window.location.search).has('debug')) {
-    return <DebugView sheetId={GOOGLE_SHEET_ID} />;
-  }
-  return <Dashboard />;
-}
-
-function Dashboard() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState('');
@@ -46,7 +38,11 @@ function Dashboard() {
     setRefreshing(true);
     try {
       const next = await loadData();
-      setData(next);
+      // While Google propagates a sheet edit (e.g. after adding rows) the feed can
+      // briefly return an empty snapshot. Don't wipe a populated dashboard for it —
+      // keep the last good data and let the next refresh pick up the real update.
+      const isEmpty = next.costEfficiency.length === 0 && next.hospitalDirector.length === 0;
+      setData((prev) => (isEmpty && prev && (prev.costEfficiency.length || prev.hospitalDirector.length) ? prev : next));
       setError(null);
       setUpdatedAt(new Date());
     } catch (e) {

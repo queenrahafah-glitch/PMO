@@ -59,56 +59,96 @@ function parseAmount(v: unknown): number | null {
   return Number.isFinite(n) ? n : null;
 }
 
-// ---- Cost Efficiency Projects (from the "Project Tracking" summary sheet) ----
+// ---- Project lists (from the "Project Tracking" summary sheet) ----
+// The tab now stacks three lists — Cost Efficiency, Improvement (Quality) and
+// Strategic — each introduced by a "List of … Projects" banner and repeating the
+// same 7 columns (N. | Title | Owner | Department | Status | Cost Savings | Blockers).
+export interface ProjectLists {
+  costEfficiency: CostEfficiencyProject[];
+  quality: CostEfficiencyProject[];
+  strategic: CostEfficiencyProject[];
+}
+
+type ListKey = keyof ProjectLists;
+
+const BANNER_RE = /list\s+of\s+.*projects/i;
+
+function rowText(row: Row): string {
+  return row.map((c) => s(c)).join(' ');
+}
+
+// Which list a "List of … Projects" banner introduces. Both the sheet's own
+// wording and a renamed heading resolve to the same key, so relabelling the
+// section in the sheet never silently breaks the dashboard.
+function bannerListKey(text: string): ListKey | null {
+  const t = text.toLowerCase();
+  if (t.includes('cost efficiency')) return 'costEfficiency';
+  if (t.includes('quality') || t.includes('improvement')) return 'quality';
+  if (t.includes('strategic')) return 'strategic';
+  return null;
+}
+
 // Exported for unit testing against both column offsets.
-export function parseCostEfficiency(rows: Row[]): CostEfficiencyProject[] {
-  let headerIdx = -1;
+export function parseProjectLists(rows: Row[]): ProjectLists {
+  const lists: ProjectLists = { costEfficiency: [], quality: [], strategic: [] };
+
   let titleCol = -1;
   let ownerCol = -1;
   let deptCol = -1;
   let statusCol = -1;
   let savingsCol = -1;
+  let blockersCol = -1;
 
-  // Detect columns from headers that live in TEXT columns only. Google's gviz
-  // feed type-casts each column and nulls out any value that doesn't fit — so
-  // the "N." header (its column is all numbers) comes back empty and can't be
-  // matched. "Project Title", "Project Owner", etc. sit in text columns and
-  // survive, so key off those instead. Substring match, since spacing/case vary.
-  for (let r = 0; r < rows.length; r++) {
-    const row = rows[r];
+  // Detect the column map ONCE, from the first row that carries both a
+  // "Project Title" and an "Owner" header. All three lists are copies of one
+  // layout, so a single map serves them all. These headers live in TEXT columns,
+  // which survive gviz's per-column type-casting (unlike "N." and "Cost Savings",
+  // whose numeric columns null their header text).
+  for (const row of rows) {
     const title = colByLabel(row, (v) => v.includes('project title'));
     const owner = colByLabel(row, (v) => v.includes('owner'));
     if (title < 0 || owner < 0) continue;
 
-    headerIdx = r;
     titleCol = title;
     ownerCol = owner;
     deptCol = colByLabel(row, (v) => v.includes('department'));
     statusCol = colByLabel(row, (v) => v.includes('status'));
     savingsCol = colByLabel(row, (v) => v.includes('savings'));
-    // The "Cost Savings (SAR)" header also sits in a number column and is
-    // nulled by type-casting; it comes right after Status, so fall back to that.
+    // "Cost Savings (SAR)" sits in a number column and is nulled by type-casting;
+    // it comes right after Status, so fall back to that.
     if (savingsCol < 0 && statusCol >= 0) savingsCol = statusCol + 1;
+    blockersCol = colByLabel(row, (v) => v.includes('blocker'));
+    // Blockers is currently empty in every row, so gviz nulls its (empty) column
+    // header too; it comes right after Cost Savings, so fall back to that.
+    if (blockersCol < 0 && savingsCol >= 0) blockersCol = savingsCol + 1;
     break;
   }
-  if (headerIdx === -1) return [];
+  if (titleCol === -1) return lists;
 
   // The sequence number sits in the column immediately left of the title. Its
   // header text is nulled by type-casting, but the per-row numbers survive.
   const noCol = titleCol - 1;
+  const isHeaderRow = (row: Row) => s(cell(row, titleCol)).toLowerCase().includes('project title');
 
-  // A project row has both a title and an owner; that pairing distinguishes real
-  // projects from the summary/banner rows (which fill the title column but leave
-  // the owner column empty) without relying on the nulled "N." header.
-  const projects: CostEfficiencyProject[] = [];
-  for (let i = 0; i < rows.length; i++) {
-    if (i === headerIdx) continue;
-    const row = rows[i];
+  // Walk top to bottom. Banners switch the active list; header rows are skipped;
+  // rows before any banner default to Cost Efficiency (the fallback xlsx has the
+  // table but no banner). A real project row is one with both a title and an owner.
+  let active: ListKey = 'costEfficiency';
+  for (const row of rows) {
+    const text = rowText(row);
+    if (BANNER_RE.test(text)) {
+      const key = bannerListKey(text);
+      if (key) active = key;
+      continue;
+    }
+    if (isHeaderRow(row)) continue;
+
     const title = s(cell(row, titleCol));
     const owner = s(cell(row, ownerCol));
     if (!title || !owner) continue;
 
-    const no = Number(cell(row, noCol)) || projects.length + 1;
+    const list = lists[active];
+    const no = Number(cell(row, noCol)) || list.length + 1;
     const dept = s(cell(row, deptCol));
     const status = s(cell(row, statusCol));
 
@@ -118,11 +158,15 @@ export function parseCostEfficiency(rows: Row[]): CostEfficiencyProject[] {
     // zero out the total. A non-numeric cell (a "Pending…" note) stays null.
     const savings = parseAmount(cell(row, savingsCol));
     const savingsNote = savings === null ? (s(cell(row, savingsCol)) || 'Pending') : null;
+    const blockers = s(cell(row, blockersCol));
 
-    projects.push({ no, title, owner, dept, status, savings, savingsNote });
+    list.push({ no, title, owner, dept, status, savings, savingsNote, blockers });
   }
-  projects.sort((a, b) => a.no - b.no);
-  return projects;
+
+  lists.costEfficiency.sort((a, b) => a.no - b.no);
+  lists.quality.sort((a, b) => a.no - b.no);
+  lists.strategic.sort((a, b) => a.no - b.no);
+  return lists;
 }
 
 // ---- Hospital Director Projects (from the "Hospital Director Projects" sheet) ----
@@ -313,10 +357,10 @@ export async function loadDashboardDataFromXlsx(url: string): Promise<DashboardD
   const buf = await res.arrayBuffer();
   const wb = XLSX.read(buf, { type: 'array', cellDates: true });
 
-  const costEfficiency = parseCostEfficiency(sheetToRows(wb, 'Project Tracking'));
+  const lists = parseProjectLists(sheetToRows(wb, 'Project Tracking'));
   const hospitalDirector = parseHospitalDirectorProjects(sheetToRows(wb, 'Hospital Director Projects'));
 
-  return { costEfficiency, hospitalDirector };
+  return { ...lists, hospitalDirector };
 }
 
 export async function loadDashboardDataFromGoogleSheet(sheetId: string): Promise<DashboardData> {
@@ -325,8 +369,8 @@ export async function loadDashboardDataFromGoogleSheet(sheetId: string): Promise
     fetchGoogleSheetRows(sheetId, 'Hospital Director Projects'),
   ]);
 
-  const costEfficiency = parseCostEfficiency(trackingRows);
+  const lists = parseProjectLists(trackingRows);
   const hospitalDirector = parseHospitalDirectorProjects(hospitalRows);
 
-  return { costEfficiency, hospitalDirector };
+  return { ...lists, hospitalDirector };
 }

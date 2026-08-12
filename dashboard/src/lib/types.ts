@@ -6,6 +6,7 @@ export interface CostEfficiencyProject {
   status: string;
   savings: number | null;
   savingsNote: string | null;
+  blockers: string;
 }
 
 export interface HospitalTask {
@@ -37,5 +38,7 @@ export interface HospitalProject {
 
 export interface DashboardData {
   costEfficiency: CostEfficiencyProject[];
+  quality: CostEfficiencyProject[];
+  strategic: CostEfficiencyProject[];
   hospitalDirector: HospitalProject[];
 }

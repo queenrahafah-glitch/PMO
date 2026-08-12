@@ -39,12 +39,29 @@ export function totalSavings(costEfficiency: CostEfficiencyProject[]): number {
 }
 
 export function buildSummaryCards(data: DashboardData): SummaryCard[] {
-  const { costEfficiency, hospitalDirector } = data;
-  const totalProjects = costEfficiency.length + hospitalDirector.length;
-  const completedCostEff = costEfficiency.filter((p) => norm(p.status).startsWith('completed')).length;
+  const { costEfficiency, quality, strategic, hospitalDirector } = data;
+
+  // Every "List of … Projects" list counts toward the overall project figures.
+  const listProjects = [...costEfficiency, ...quality, ...strategic];
+  const totalProjects = listProjects.length + hospitalDirector.length;
+  const completedProjects = listProjects.filter((p) => norm(p.status).startsWith('completed')).length;
+
+  // Realized savings stay scoped to Cost Efficiency — savings are a cost measure.
   const savings = totalSavings(costEfficiency);
   const pendingSavings = costEfficiency.filter((p) => p.savings == null).length;
-  const depts = [...new Set(costEfficiency.map((p) => p.dept))];
+
+  const depts = [...new Set(listProjects.map((p) => p.dept).filter(Boolean))];
+
+  // Breakdown for the Total Projects subtitle, omitting any list that's empty.
+  const breakdown = [
+    [costEfficiency.length, 'cost efficiency'] as const,
+    [quality.length, 'quality'] as const,
+    [strategic.length, 'strategic'] as const,
+    [hospitalDirector.length, 'director-led'] as const,
+  ]
+    .filter(([n]) => n > 0)
+    .map(([n, label]) => `${n} ${label}`)
+    .join(' + ');
 
   const allTasks = hospitalDirector.flatMap((p) => p.tasks);
   const delayedTasks = allTasks.filter((t) => norm(t.status) === 'delayed').length;
@@ -55,7 +72,7 @@ export function buildSummaryCards(data: DashboardData): SummaryCard[] {
       labelEn: 'Total Projects',
       labelAr: 'إجمالي المشاريع',
       value: totalProjects,
-      sub: `${costEfficiency.length} cost efficiency + ${hospitalDirector.length} director-led`,
+      sub: breakdown,
       color: 'oklch(48% 0.13 255)',
     },
     {
@@ -68,8 +85,8 @@ export function buildSummaryCards(data: DashboardData): SummaryCard[] {
     {
       labelEn: 'Completed',
       labelAr: 'مكتملة',
-      value: completedCostEff,
-      sub: `of ${costEfficiency.length} cost efficiency projects`,
+      value: completedProjects,
+      sub: `of ${listProjects.length} tracked projects`,
       color: 'oklch(48% 0.13 150)',
     },
     {

@@ -326,6 +326,12 @@ input::placeholder {
   font-weight: 700;
   color: var(--savings-color);
 }
+.table-blockers {
+  font-size: 12px;
+  line-height: 1.45;
+  color: oklch(48% 0.02 255);
+  white-space: pre-line;
+}
 .empty-state {
   padding: 28px;
   text-align: center;

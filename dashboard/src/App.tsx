@@ -41,8 +41,10 @@ export default function App() {
       // While Google propagates a sheet edit (e.g. after adding rows) the feed can
       // briefly return an empty snapshot. Don't wipe a populated dashboard for it —
       // keep the last good data and let the next refresh pick up the real update.
-      const isEmpty = next.costEfficiency.length === 0 && next.hospitalDirector.length === 0;
-      setData((prev) => (isEmpty && prev && (prev.costEfficiency.length || prev.hospitalDirector.length) ? prev : next));
+      const rowCount = (d: DashboardData) =>
+        d.costEfficiency.length + d.quality.length + d.strategic.length + d.hospitalDirector.length;
+      const isEmpty = rowCount(next) === 0;
+      setData((prev) => (isEmpty && prev && rowCount(prev) > 0 ? prev : next));
       setError(null);
       setUpdatedAt(new Date());
     } catch (e) {
@@ -72,6 +74,14 @@ export default function App() {
     () => (data ? filterByQuery(data.costEfficiency, query, costEffSearchText) : []),
     [data, query],
   );
+  const filteredQuality = useMemo(
+    () => (data ? filterByQuery(data.quality, query, costEffSearchText) : []),
+    [data, query],
+  );
+  const filteredStrategic = useMemo(
+    () => (data ? filterByQuery(data.strategic, query, costEffSearchText) : []),
+    [data, query],
+  );
   const filteredHospital = useMemo(
     () => (data ? filterByQuery(data.hospitalDirector, query, hospitalSearchText) : []),
     [data, query],
@@ -95,6 +105,7 @@ export default function App() {
 
   const savingsLabel = `${(totalSavings(data.costEfficiency) / 1e6).toFixed(1)}M SAR realized`;
   const allTasks = data.hospitalDirector.flatMap((p) => p.tasks);
+  const emptyListLabel = 'Not filled in yet · لم تُضف مشاريع بعد';
 
   return (
     <div className="dashboard">
@@ -108,7 +119,26 @@ export default function App() {
       />
       <SummaryCards cards={summaryCards} />
       <StatusMixBar segments={statusMix} />
-      <CostEfficiencyTable projects={filteredCostEff} count={data.costEfficiency.length} savingsLabel={savingsLabel} />
+      <CostEfficiencyTable
+        projects={filteredCostEff}
+        titleEn="Cost Efficiency Projects"
+        titleAr="قائمة مشاريع كفاءة التكلفة · مسؤول: Ms. Rahaf"
+        meta={`${data.costEfficiency.length} projects · ${savingsLabel}`}
+      />
+      <CostEfficiencyTable
+        projects={filteredQuality}
+        titleEn="Improvement (Quality) Projects"
+        titleAr="قائمة مشاريع التحسين (الجودة)"
+        meta={`${data.quality.length} projects`}
+        emptyLabel={emptyListLabel}
+      />
+      <CostEfficiencyTable
+        projects={filteredStrategic}
+        titleEn="Strategic Projects"
+        titleAr="قائمة المشاريع الاستراتيجية"
+        meta={`${data.strategic.length} projects`}
+        emptyLabel={emptyListLabel}
+      />
       <HospitalDirectorAccordion
         projects={filteredHospital}
         count={data.hospitalDirector.length}

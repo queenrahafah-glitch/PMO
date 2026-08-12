@@ -11,14 +11,20 @@ interface Props {
   // empty Quality/Strategic section read as "not filled in yet" rather than
   // "no search results".
   emptyLabel?: string;
+  // Cost Savings is a cost-efficiency measure, so the Quality/Strategic lists hide
+  // that column entirely (header and cells) rather than showing an empty field.
+  showSavings?: boolean;
 }
 
 // One table renders all three project lists (Cost Efficiency, Quality, Strategic),
-// which share a layout. The 7-column grid is set inline on both the header and the
-// data rows so the shared .table-header-row / .table-row rules stay untouched.
-const GRID = '40px 2.2fr 1fr 0.9fr 0.9fr 1fr 1.2fr';
+// which share a layout. The column grid is set inline on both the header and the
+// data rows so the shared .table-header-row / .table-row rules stay untouched — a
+// narrower grid is used when the Cost Savings column is dropped.
+const GRID_WITH_SAVINGS = '40px 2.2fr 1fr 0.9fr 0.9fr 1fr 1.2fr';
+const GRID_NO_SAVINGS = '40px 2.2fr 1fr 0.9fr 0.9fr 1.2fr';
 
-export function CostEfficiencyTable({ projects, titleEn, titleAr, meta, emptyLabel }: Props) {
+export function CostEfficiencyTable({ projects, titleEn, titleAr, meta, emptyLabel, showSavings = true }: Props) {
+  const GRID = showSavings ? GRID_WITH_SAVINGS : GRID_NO_SAVINGS;
   return (
     <div className="section">
       <div className="section-header">
@@ -36,7 +42,7 @@ export function CostEfficiencyTable({ projects, titleEn, titleAr, meta, emptyLab
           <div>Owner</div>
           <div>Department</div>
           <div>Status</div>
-          <div>Cost Savings (SAR)</div>
+          {showSavings && <div>Cost Savings (SAR)</div>}
           <div>Blockers / المعوقات</div>
         </div>
         {projects.map((p) => {
@@ -63,9 +69,11 @@ export function CostEfficiencyTable({ projects, titleEn, titleAr, meta, emptyLab
                   {p.status}
                 </span>
               </div>
-              <div className="savings" style={{ '--savings-color': savingsColor } as CSSProperties} dir="auto">
-                {savingsLabel}
-              </div>
+              {showSavings && (
+                <div className="savings" style={{ '--savings-color': savingsColor } as CSSProperties} dir="auto">
+                  {savingsLabel}
+                </div>
+              )}
               <div className="table-blockers" dir="auto">{p.blockers || '—'}</div>
             </div>
           );

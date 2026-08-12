@@ -131,6 +131,7 @@ export default function App() {
         titleAr="قائمة مشاريع التحسين (الجودة)"
         meta={`${data.quality.length} projects`}
         emptyLabel={emptyListLabel}
+        showSavings={false}
       />
       <CostEfficiencyTable
         projects={filteredStrategic}
@@ -138,6 +139,7 @@ export default function App() {
         titleAr="قائمة المشاريع الاستراتيجية"
         meta={`${data.strategic.length} projects`}
         emptyLabel={emptyListLabel}
+        showSavings={false}
       />
       <HospitalDirectorAccordion
         projects={filteredHospital}

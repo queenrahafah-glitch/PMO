@@ -27,7 +27,7 @@ export default function App() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState('');
-  const [openIds, setOpenIds] = useState<Record<number, boolean>>({ 0: true });
+  const [openIds, setOpenIds] = useState<Record<number, boolean>>({});
   const [updatedAt, setUpdatedAt] = useState<Date | null>(null);
   const [refreshing, setRefreshing] = useState(false);
   const inFlight = useRef(false);

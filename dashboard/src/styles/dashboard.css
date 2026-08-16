@@ -201,6 +201,23 @@ input::placeholder {
   font-size: 13px;
   color: oklch(50% 0.02 255);
 }
+/* Clickable section header that collapses/expands its whole list, like the
+   Hospital Director project cards. */
+.section-header--toggle {
+  width: 100%;
+  align-items: center;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+}
+.section-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
 /* ---- Status mix ---- */
 .status-card {

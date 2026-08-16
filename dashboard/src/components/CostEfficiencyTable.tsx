@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import { useState, type CSSProperties } from 'react';
 import type { CostEfficiencyProject } from '../lib/types';
 import { costEffProgressPct, costEffStatusColor, progressBarColor } from '../lib/colors';
 
@@ -25,16 +25,23 @@ const GRID_NO_SAVINGS = '40px 2.2fr 1fr 0.9fr 0.9fr 1.2fr';
 
 export function CostEfficiencyTable({ projects, titleEn, titleAr, meta, emptyLabel, showSavings = true }: Props) {
   const GRID = showSavings ? GRID_WITH_SAVINGS : GRID_NO_SAVINGS;
+  const [open, setOpen] = useState(true);
   return (
     <div className="section">
-      <div className="section-header">
+      <button type="button" className="section-header section-header--toggle" onClick={() => setOpen((o) => !o)}>
         <div>
           <div className="section-title-en">{titleEn}</div>
           <div className="section-title-ar" dir="rtl">{titleAr}</div>
         </div>
-        <div className="section-meta">{meta}</div>
-      </div>
+        <div className="section-header-right">
+          <div className="section-meta">{meta}</div>
+          <div className="chevron" style={{ '--chevron-rotate': open ? 'rotate(180deg)' : 'rotate(0deg)' } as CSSProperties}>
+            ⌄
+          </div>
+        </div>
+      </button>
 
+      {open && (
       <div className="table-card">
         <div className="table-header-row" style={{ gridTemplateColumns: GRID }}>
           <div>N.</div>
@@ -82,6 +89,7 @@ export function CostEfficiencyTable({ projects, titleEn, titleAr, meta, emptyLab
           <div className="empty-state">{emptyLabel ?? 'No projects match your search.'}</div>
         )}
       </div>
+      )}
     </div>
   );
 }

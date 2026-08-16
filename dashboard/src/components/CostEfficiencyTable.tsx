@@ -25,7 +25,7 @@ const GRID_NO_SAVINGS = '40px 2.2fr 1fr 0.9fr 0.9fr 1.2fr';
 
 export function CostEfficiencyTable({ projects, titleEn, titleAr, meta, emptyLabel, showSavings = true }: Props) {
   const GRID = showSavings ? GRID_WITH_SAVINGS : GRID_NO_SAVINGS;
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   return (
     <div className="section">
       <button type="button" className="section-header section-header--toggle" onClick={() => setOpen((o) => !o)}>

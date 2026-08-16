@@ -180,10 +180,29 @@ interface HospitalCols {
   assignee: number;
   description: number;
   deliverable: number;
+  percentDone: number;
   blockers: number;
   baseline: number;
   target: number;
   actual: number;
+}
+
+// Parse a "% DONE" cell into a 0–100 number. Google percent cells arrive as a
+// fraction (0.5), plain numbers (50) or strings ("50%"); blank/error cells (""
+// or "#DIV/0!") return null so they don't count as 0% completion by mistake.
+function parsePercent(v: unknown): number | null {
+  if (v == null) return null;
+  let raw: number;
+  if (typeof v === 'number') {
+    raw = v;
+  } else {
+    const cleaned = String(v).replace(/[%\s]/g, '');
+    if (cleaned === '') return null; // blank cell that still renders as "%"
+    raw = Number(cleaned);
+  }
+  if (!Number.isFinite(raw)) return null; // "#DIV/0!" and other text
+  const pct = raw > 0 && raw <= 1 ? raw * 100 : raw;
+  return Math.max(0, Math.min(100, Math.round(pct)));
 }
 
 function locateHospitalColumns(rows: Row[]): HospitalCols | null {
@@ -213,6 +232,7 @@ function locateHospitalColumns(rows: Row[]): HospitalCols | null {
       assignee: colByLabel(row, (v) => v.includes('assignee')),
       description: colByLabel(row, (v) => v.includes('description')),
       deliverable: colByLabel(row, (v) => v.includes('deliverable')),
+      percentDone: colByLabel(row, (v) => v.includes('done')),
       blockers: colByLabel(row, (v) => v.includes('blocker')),
       baseline: colByLabel(row, (v) => v.includes('baseline')),
       target: colByLabel(row, (v) => v.includes('targeted')),
@@ -290,6 +310,7 @@ function parseTaskRow(row: Row, cols: HospitalCols): HospitalTask {
     assignee,
     description,
     blockers: s(cell(row, cols.blockers)),
+    percentDone: parsePercent(cell(row, cols.percentDone)),
   };
 }
 

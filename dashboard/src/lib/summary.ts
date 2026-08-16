@@ -127,5 +127,8 @@ export function buildStatusMix(hospitalDirector: HospitalProject[]): StatusMixSe
 
 export function projectAvgPct(taskPct: (status: string) => number, project: HospitalProject): number {
   if (project.tasks.length === 0) return 0;
-  return Math.round(project.tasks.reduce((a, t) => a + taskPct(t.status), 0) / project.tasks.length);
+  // Use the sheet's own "% DONE" for each task when it's filled in; only fall
+  // back to estimating progress from the task's status when that cell is blank.
+  const sum = project.tasks.reduce((a, t) => a + (t.percentDone ?? taskPct(t.status)), 0);
+  return Math.round(sum / project.tasks.length);
 }

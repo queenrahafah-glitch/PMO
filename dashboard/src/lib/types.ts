@@ -19,6 +19,8 @@ export interface HospitalTask {
   assignee: string;
   description: string;
   blockers: string;
+  // The sheet's own "% DONE" value (0–100), or null when the cell is blank.
+  percentDone: number | null;
 }
 
 export interface KpiEntry {

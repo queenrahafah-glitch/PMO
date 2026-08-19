@@ -10,6 +10,9 @@ export interface SummaryCard {
   value: string | number;
   sub: string;
   color: string;
+  // When set, the card hides this list behind a click-to-expand toggle instead
+  // of printing a long inline subtitle.
+  items?: string[];
 }
 
 export interface StatusMixSegment {
@@ -128,7 +131,8 @@ export function buildSummaryCards(data: DashboardData): SummaryCard[] {
       labelEn: 'Departments Engaged',
       labelAr: 'الأقسام المشاركة',
       value: depts.length,
-      sub: depts.join(' · '),
+      sub: 'اضغط لعرض الأقسام',
+      items: depts,
       color: 'oklch(48% 0.13 255)',
     },
   ];

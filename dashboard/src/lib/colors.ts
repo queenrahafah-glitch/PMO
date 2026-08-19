@@ -15,6 +15,7 @@ const COST_EFF_STATUS_COLORS: Record<string, ColorPair> = {
   completed: { bg: 'oklch(92% 0.06 150)', color: 'oklch(45% 0.14 150)' },
   extended: { bg: 'oklch(92% 0.07 25)', color: 'oklch(48% 0.16 25)' },
   delayed: { bg: 'oklch(92% 0.07 25)', color: 'oklch(48% 0.16 25)' },
+  proposal: { bg: 'oklch(93% 0.06 80)', color: 'oklch(48% 0.13 80)' },
 };
 
 const TASK_STATUS_COLORS: Record<string, ColorPair> = {

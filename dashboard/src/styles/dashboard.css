@@ -700,6 +700,16 @@ input::placeholder {
 .chart-card--wide {
   grid-column: 1 / -1;
 }
+/* Lay many department bars out in several compact columns instead of one long
+   column, so the chart doesn't run down the whole page. */
+.bars--cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 10px 32px;
+}
+.bars--cols .bar-row {
+  grid-template-columns: 110px 1fr auto;
+}
 .bar-fill--count {
   background: oklch(52% 0.13 255);
 }

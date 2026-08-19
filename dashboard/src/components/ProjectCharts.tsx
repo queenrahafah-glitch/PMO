@@ -144,7 +144,7 @@ export function ProjectCharts({ costEfficiency, quality, strategic }: Props) {
         {deptRows.length === 0 ? (
           <div className="empty-state">No departments yet.</div>
         ) : (
-          <div className="bars">
+          <div className="bars bars--cols">
             {deptRows.map((r) => (
               <div className="bar-row" key={r.dept}>
                 <div className="bar-label" dir="auto" title={r.dept}>{r.dept}</div>

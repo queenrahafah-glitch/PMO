@@ -76,6 +76,20 @@ export function buildSummaryCards(data: DashboardData): SummaryCard[] {
       color: 'oklch(48% 0.13 255)',
     },
     {
+      labelEn: 'Quality Projects',
+      labelAr: 'مشاريع الجودة',
+      value: quality.length,
+      sub: 'مسؤول: د. بدير',
+      color: 'oklch(48% 0.13 310)',
+    },
+    {
+      labelEn: 'Strategic Projects',
+      labelAr: 'المشاريع الاستراتيجية',
+      value: strategic.length,
+      sub: 'مسؤول: أ. ناصر عنكيص',
+      color: 'oklch(48% 0.13 200)',
+    },
+    {
       labelEn: 'Realized Savings',
       labelAr: 'الوفورات المحققة',
       value: `${(savings / 1e6).toFixed(1)}M SAR`,

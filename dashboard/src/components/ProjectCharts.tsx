@@ -50,11 +50,17 @@ export function ProjectCharts({ costEfficiency, quality, strategic }: Props) {
     return arc;
   });
 
-  // ---- Bars: realized savings by project ----
-  const savingsRows = all
-    .filter((p) => p.savings != null)
-    .sort((a, b) => (b.savings ?? 0) - (a.savings ?? 0));
-  const maxSaving = Math.max(1, ...savingsRows.map((p) => p.savings ?? 0));
+  // ---- Bars: realized savings summed by department ----
+  const byDept = new Map<string, number>();
+  for (const p of all) {
+    if (p.savings == null) continue;
+    const dept = p.dept || '—';
+    byDept.set(dept, (byDept.get(dept) ?? 0) + p.savings);
+  }
+  const savingsRows = [...byDept.entries()]
+    .map(([dept, saving]) => ({ dept, saving }))
+    .sort((a, b) => b.saving - a.saving);
+  const maxSaving = Math.max(1, ...savingsRows.map((r) => r.saving));
 
   return (
     <div className="charts-grid">
@@ -100,19 +106,19 @@ export function ProjectCharts({ costEfficiency, quality, strategic }: Props) {
 
       <div className="chart-card">
         <div className="chart-title">
-          Realized Savings by Project <span dir="rtl">· الوفورات حسب المشروع</span>
+          Realized Savings by Department <span dir="rtl">· الوفورات حسب القسم</span>
         </div>
         {savingsRows.length === 0 ? (
           <div className="empty-state">No calculated savings yet.</div>
         ) : (
           <div className="bars">
-            {savingsRows.map((p) => (
-              <div className="bar-row" key={`${p.no}-${p.title}`}>
-                <div className="bar-label" dir="auto" title={p.title}>{p.title}</div>
+            {savingsRows.map((r) => (
+              <div className="bar-row" key={r.dept}>
+                <div className="bar-label" dir="auto" title={r.dept}>{r.dept}</div>
                 <div className="bar-track">
-                  <div className="bar-fill" style={{ width: `${((p.savings ?? 0) / maxSaving) * 100}%` } as CSSProperties} />
+                  <div className="bar-fill" style={{ width: `${(r.saving / maxSaving) * 100}%` } as CSSProperties} />
                 </div>
-                <div className="bar-value">{(p.savings ?? 0).toLocaleString('en-US')}</div>
+                <div className="bar-value">{r.saving.toLocaleString('en-US')}</div>
               </div>
             ))}
           </div>

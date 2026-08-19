@@ -144,16 +144,24 @@ export function ProjectCharts({ costEfficiency, quality, strategic }: Props) {
         {deptRows.length === 0 ? (
           <div className="empty-state">No departments yet.</div>
         ) : (
-          <div className="bars bars--cols">
-            {deptRows.map((r) => (
-              <div className="bar-row" key={r.dept}>
-                <div className="bar-label" dir="auto" title={r.dept}>{r.dept}</div>
-                <div className="bar-track">
-                  <div className="bar-fill bar-fill--count" style={{ width: `${(r.count / maxDept) * 100}%` } as CSSProperties} />
+          <div className="bubbles">
+            {deptRows.map((r) => {
+              const size = Math.round(40 + Math.sqrt(r.count) * 26);
+              const t = (r.count - 1) / ((maxDept - 1) || 1);
+              const bg = `oklch(${Math.round(80 - t * 38)}% 0.13 255)`;
+              const ink = r.count >= 3 ? '#fff' : 'oklch(32% 0.09 255)';
+              return (
+                <div
+                  className="bubble"
+                  key={r.dept}
+                  title={`${r.dept}: ${r.count}`}
+                  style={{ width: size, height: size, background: bg, color: ink } as CSSProperties}
+                >
+                  <span className="bubble-count">{r.count}</span>
+                  <span className="bubble-label" dir="auto">{r.dept}</span>
                 </div>
-                <div className="bar-value bar-value--count">{r.count}</div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

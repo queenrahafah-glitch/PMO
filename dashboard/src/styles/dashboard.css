@@ -700,21 +700,36 @@ input::placeholder {
 .chart-card--wide {
   grid-column: 1 / -1;
 }
-/* Lay many department bars out in several compact columns instead of one long
-   column, so the chart doesn't run down the whole page. */
-.bars--cols {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 10px 32px;
+/* Department participation as bubbles: circle area grows with the project count,
+   colour deepens with it, so many departments read at a glance in little space. */
+.bubbles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
 }
-.bars--cols .bar-row {
-  grid-template-columns: 110px 1fr auto;
+.bubble {
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex: none;
+  padding: 2px;
 }
-.bar-fill--count {
-  background: oklch(52% 0.13 255);
+.bubble-count {
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1;
 }
-.bar-value--count {
-  color: oklch(45% 0.14 255);
+.bubble-label {
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.05;
+  padding: 1px 3px 0;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 /* ---- Footer / loading / error ---- */

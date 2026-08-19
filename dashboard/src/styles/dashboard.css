@@ -244,6 +244,12 @@ input::placeholder {
   align-items: center;
   gap: 12px;
 }
+.section-toggle-hint {
+  font-size: 12px;
+  font-weight: 700;
+  color: oklch(48% 0.13 255);
+  white-space: nowrap;
+}
 
 /* ---- Status mix ---- */
 .status-card {

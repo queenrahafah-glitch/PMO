@@ -35,9 +35,7 @@ export function CostEfficiencyTable({ projects, titleEn, titleAr, meta, emptyLab
         </div>
         <div className="section-header-right">
           <div className="section-meta">{meta}</div>
-          <div className="chevron" style={{ '--chevron-rotate': open ? 'rotate(180deg)' : 'rotate(0deg)' } as CSSProperties}>
-            ⌄
-          </div>
+          <span className="section-toggle-hint">{open ? 'اضغط للإخفاء ▲' : 'اضغط لعرض ▾'}</span>
         </div>
       </button>
 

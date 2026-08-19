@@ -130,18 +130,30 @@ export function parseProjectLists(rows: Row[]): ProjectLists {
   const noCol = titleCol - 1;
   const isHeaderRow = (row: Row) => s(cell(row, titleCol)).toLowerCase().includes('project title');
 
-  // Walk top to bottom. Banners switch the active list; header rows are skipped;
-  // rows before any banner default to Cost Efficiency (the fallback xlsx has the
-  // table but no banner). A real project row is one with both a title and an owner.
+  // Lists can be delimited two ways: explicit "List of … Projects" banners, or —
+  // as in the live sheet — just the column-header row repeated before each list.
+  // Prefer banners when present (so a renamed heading still resolves); otherwise
+  // treat each repeated header row as the start of the next list, in fixed order
+  // (Cost Efficiency, then Quality, then Strategic).
+  const listOrder: ListKey[] = ['costEfficiency', 'quality', 'strategic'];
+  const hasBanners = rows.some((row) => BANNER_RE.test(rowText(row)));
   let active: ListKey = 'costEfficiency';
+  let headerCount = 0;
+
   for (const row of rows) {
     const text = rowText(row);
-    if (BANNER_RE.test(text)) {
+    if (hasBanners && BANNER_RE.test(text)) {
       const key = bannerListKey(text);
       if (key) active = key;
       continue;
     }
-    if (isHeaderRow(row)) continue;
+    if (isHeaderRow(row)) {
+      if (!hasBanners) {
+        active = listOrder[Math.min(headerCount, listOrder.length - 1)];
+        headerCount++;
+      }
+      continue;
+    }
 
     const title = s(cell(row, titleCol));
     const owner = s(cell(row, ownerCol));

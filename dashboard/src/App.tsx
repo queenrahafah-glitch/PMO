@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { CostEfficiencyTable } from './components/CostEfficiencyTable';
 import { HospitalDirectorAccordion } from './components/HospitalDirectorAccordion';
+import { ProjectCharts } from './components/ProjectCharts';
 import { StatusMixBar } from './components/StatusMixBar';
 import { SummaryCards } from './components/SummaryCards';
 import { TopBar } from './components/TopBar';
@@ -119,6 +120,11 @@ export default function App() {
       />
       <SummaryCards cards={summaryCards} />
       <StatusMixBar segments={statusMix} />
+      <ProjectCharts
+        costEfficiency={data.costEfficiency}
+        quality={data.quality}
+        strategic={data.strategic}
+      />
       <CostEfficiencyTable
         projects={filteredCostEff}
         titleEn="Cost Efficiency Projects"

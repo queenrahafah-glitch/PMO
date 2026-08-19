@@ -28,7 +28,7 @@ export function HospitalDirectorAccordion({ projects, count, taskCount, openIds,
       <div className="section-header">
         <div>
           <div className="section-title-en">Hospital Director Projects</div>
-          <div className="section-title-ar" dir="rtl">مشاريع مدير المستشفى · Owner: Mr. Jahz Almotairy</div>
+          <div className="section-title-ar" dir="rtl">مشاريع مدير المستشفى · Responsible: رهف الحقباني</div>
         </div>
         <div className="section-meta">
           {count} projects · {taskCount} tasks tracked

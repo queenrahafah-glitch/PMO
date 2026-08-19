@@ -62,6 +62,18 @@ export function ProjectCharts({ costEfficiency, quality, strategic }: Props) {
     .sort((a, b) => b.saving - a.saving);
   const maxSaving = Math.max(1, ...savingsRows.map((r) => r.saving));
 
+  // ---- Bars: how many projects each department takes part in (all lists) ----
+  const deptCounts = new Map<string, number>();
+  for (const p of all) {
+    const dept = p.dept.trim();
+    if (!dept) continue;
+    deptCounts.set(dept, (deptCounts.get(dept) ?? 0) + 1);
+  }
+  const deptRows = [...deptCounts.entries()]
+    .map(([dept, count]) => ({ dept, count }))
+    .sort((a, b) => b.count - a.count);
+  const maxDept = Math.max(1, ...deptRows.map((r) => r.count));
+
   return (
     <div className="charts-grid">
       <div className="chart-card">
@@ -119,6 +131,27 @@ export function ProjectCharts({ costEfficiency, quality, strategic }: Props) {
                   <div className="bar-fill" style={{ width: `${(r.saving / maxSaving) * 100}%` } as CSSProperties} />
                 </div>
                 <div className="bar-value">{r.saving.toLocaleString('en-US')}</div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="chart-card chart-card--wide">
+        <div className="chart-title">
+          Department Participation <span dir="rtl">· مشاركة الأقسام في المشاريع</span>
+        </div>
+        {deptRows.length === 0 ? (
+          <div className="empty-state">No departments yet.</div>
+        ) : (
+          <div className="bars">
+            {deptRows.map((r) => (
+              <div className="bar-row" key={r.dept}>
+                <div className="bar-label" dir="auto" title={r.dept}>{r.dept}</div>
+                <div className="bar-track">
+                  <div className="bar-fill bar-fill--count" style={{ width: `${(r.count / maxDept) * 100}%` } as CSSProperties} />
+                </div>
+                <div className="bar-value bar-value--count">{r.count}</div>
               </div>
             ))}
           </div>

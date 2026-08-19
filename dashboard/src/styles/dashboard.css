@@ -697,6 +697,15 @@ input::placeholder {
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
+.chart-card--wide {
+  grid-column: 1 / -1;
+}
+.bar-fill--count {
+  background: oklch(52% 0.13 255);
+}
+.bar-value--count {
+  color: oklch(45% 0.14 255);
+}
 
 /* ---- Footer / loading / error ---- */
 .footer-note {

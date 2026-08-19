@@ -76,6 +76,13 @@ export function buildSummaryCards(data: DashboardData): SummaryCard[] {
       color: 'oklch(48% 0.13 255)',
     },
     {
+      labelEn: 'Cost Efficiency Projects',
+      labelAr: 'مشاريع كفاءة الإنفاق',
+      value: costEfficiency.length,
+      sub: 'مسؤول: أ. رهف الحقباني',
+      color: 'oklch(48% 0.13 160)',
+    },
+    {
       labelEn: 'Quality Projects',
       labelAr: 'مشاريع الجودة',
       value: quality.length,

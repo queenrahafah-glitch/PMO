@@ -11,8 +11,10 @@ function lookup(map: Record<string, ColorPair>, key: string): ColorPair {
 
 const COST_EFF_STATUS_COLORS: Record<string, ColorPair> = {
   'on going': { bg: 'oklch(93% 0.05 255)', color: 'oklch(45% 0.14 255)' },
+  ongoing: { bg: 'oklch(93% 0.05 255)', color: 'oklch(45% 0.14 255)' },
   completed: { bg: 'oklch(92% 0.06 150)', color: 'oklch(45% 0.14 150)' },
   extended: { bg: 'oklch(92% 0.07 25)', color: 'oklch(48% 0.16 25)' },
+  delayed: { bg: 'oklch(92% 0.07 25)', color: 'oklch(48% 0.16 25)' },
 };
 
 const TASK_STATUS_COLORS: Record<string, ColorPair> = {

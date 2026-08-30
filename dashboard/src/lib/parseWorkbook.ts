@@ -175,9 +175,18 @@ export function parseProjectLists(rows: Row[]): ProjectLists {
     list.push({ no, title, owner, dept, status, savings, savingsNote, blockers });
   }
 
-  lists.costEfficiency.sort((a, b) => a.no - b.no);
-  lists.quality.sort((a, b) => a.no - b.no);
-  lists.strategic.sort((a, b) => a.no - b.no);
+  // Order so the projects that need attention surface first: any with a blocker
+  // rise to the top, completed ones sink to the bottom, everything else keeps its
+  // sheet order (by no) in between.
+  const rank = (p: CostEfficiencyProject): number => {
+    if (p.status.trim().toLowerCase().startsWith('completed')) return 2;
+    if (p.blockers.trim() !== '') return 0;
+    return 1;
+  };
+  const byAttention = (a: CostEfficiencyProject, b: CostEfficiencyProject) => rank(a) - rank(b) || a.no - b.no;
+  lists.costEfficiency.sort(byAttention);
+  lists.quality.sort(byAttention);
+  lists.strategic.sort(byAttention);
   return lists;
 }
 

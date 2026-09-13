@@ -66,12 +66,6 @@ input::placeholder {
   gap: 6px;
   flex-wrap: wrap;
 }
-.topbar-owners {
-  font-size: 13px;
-  font-weight: 600;
-  color: oklch(90% 0.03 255);
-  margin-top: 6px;
-}
 .refresh-btn {
   display: inline-flex;
   align-items: center;

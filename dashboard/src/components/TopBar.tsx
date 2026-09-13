@@ -27,6 +27,9 @@ export function TopBar({ query, onQueryChange, todayLabel, updatedAt, refreshing
             <span dir="rtl">{refreshing ? 'يحدّث…' : 'تحديث'}</span>
           </button>
         </div>
+        <div className="topbar-owners" dir="rtl">
+          مسؤول المشاريع: أ. رهف الحقباني · المسؤول المالي: أ. عبدالله الجساس
+        </div>
       </div>
       <div className="search-wrap">
         <input

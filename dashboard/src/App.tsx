@@ -128,7 +128,7 @@ export default function App() {
       <CostEfficiencyTable
         projects={filteredCostEff}
         titleEn="Cost Efficiency Projects"
-        titleAr="قائمة مشاريع كفاءة التكلفة · مسؤول: أ. رهف الحقباني"
+        titleAr="قائمة مشاريع كفاءة التكلفة · مسؤول المشاريع: أ. رهف الحقباني · المسؤول المالي: أ. عبدالله الجساس"
         meta={`${data.costEfficiency.length} projects · ${savingsLabel}`}
       />
       <CostEfficiencyTable

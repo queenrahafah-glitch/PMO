@@ -82,7 +82,7 @@ export function buildSummaryCards(data: DashboardData): SummaryCard[] {
       labelEn: 'Cost Efficiency Projects',
       labelAr: 'مشاريع كفاءة الإنفاق',
       value: costEfficiency.length,
-      sub: 'مسؤول: أ. رهف الحقباني',
+      sub: 'مسؤول المشاريع: أ. رهف الحقباني · المسؤول المالي: أ. عبدالله الجساس',
       color: 'oklch(48% 0.13 160)',
     },
     {

@@ -159,7 +159,7 @@ export default function App() {
         totals to maintain. · الأرقام محسوبة تلقائيًا من حالة المهام والتكاليف في الملف الأصلي
       </div>
       <div className="footer-credit" dir="ltr">
-        © All Rights Reserved By <span dir="rtl">رهف الحقباني</span>
+        © All Rights Reserved By <span dir="rtl">رهف الحقباني</span> {new Date().getFullYear()}
       </div>
     </div>
   );

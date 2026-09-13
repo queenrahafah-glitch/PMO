@@ -38,7 +38,7 @@ input::placeholder {
 
 /* ---- Top bar ---- */
 .topbar {
-  background: linear-gradient(120deg, oklch(48% 0.19 275), oklch(52% 0.16 230) 55%, oklch(62% 0.15 200));
+  background: linear-gradient(120deg, oklch(46% 0.13 268), oklch(52% 0.14 228) 55%, oklch(62% 0.14 200));
   padding: 28px 40px;
   display: flex;
   align-items: center;

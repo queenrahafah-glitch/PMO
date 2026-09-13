@@ -158,8 +158,8 @@ export default function App() {
         Figures are computed live from task status, risk and cost-savings fields in the source tracking sheet — no manual
         totals to maintain. · الأرقام محسوبة تلقائيًا من حالة المهام والتكاليف في الملف الأصلي
       </div>
-      <div className="footer-credit" dir="rtl">
-        © رهف الحقباني {new Date().getFullYear()}
+      <div className="footer-credit" dir="ltr">
+        © All Rights Reserved By <span dir="rtl">رهف الحقباني</span>
       </div>
     </div>
   );

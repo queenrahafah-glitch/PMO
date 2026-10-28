@@ -136,9 +136,13 @@ export function buildSummaryCards(data: DashboardData, showQualityStrategic = tr
       color: 'oklch(48% 0.13 255)',
     },
   ];
-  return showQualityStrategic
-    ? cards
-    : cards.filter((c) => c.labelEn !== 'Quality Projects' && c.labelEn !== 'Strategic Projects');
+  // Total Projects is hidden from the page.
+  const hidden = new Set(['Total Projects']);
+  if (!showQualityStrategic) {
+    hidden.add('Quality Projects');
+    hidden.add('Strategic Projects');
+  }
+  return cards.filter((c) => !hidden.has(c.labelEn));
 }
 
 export function buildStatusMix(hospitalDirector: HospitalProject[]): StatusMixSegment[] {

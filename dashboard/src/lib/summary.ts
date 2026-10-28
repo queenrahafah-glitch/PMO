@@ -41,7 +41,7 @@ export function totalSavings(costEfficiency: CostEfficiencyProject[]): number {
   return costEfficiency.reduce((a, p) => a + (p.savings ?? 0), 0);
 }
 
-export function buildSummaryCards(data: DashboardData): SummaryCard[] {
+export function buildSummaryCards(data: DashboardData, showQualityStrategic = true): SummaryCard[] {
   const { costEfficiency, quality, strategic, hospitalDirector } = data;
 
   // Every "List of … Projects" list counts toward the overall project figures.
@@ -70,7 +70,7 @@ export function buildSummaryCards(data: DashboardData): SummaryCard[] {
   const delayedTasks = allTasks.filter((t) => norm(t.status) === 'delayed').length;
   const notStartedTasks = allTasks.filter((t) => norm(t.status) === 'not yet started').length;
 
-  return [
+  const cards: SummaryCard[] = [
     {
       labelEn: 'Total Projects',
       labelAr: 'إجمالي المشاريع',
@@ -136,6 +136,9 @@ export function buildSummaryCards(data: DashboardData): SummaryCard[] {
       color: 'oklch(48% 0.13 255)',
     },
   ];
+  return showQualityStrategic
+    ? cards
+    : cards.filter((c) => c.labelEn !== 'Quality Projects' && c.labelEn !== 'Strategic Projects');
 }
 
 export function buildStatusMix(hospitalDirector: HospitalProject[]): StatusMixSegment[] {

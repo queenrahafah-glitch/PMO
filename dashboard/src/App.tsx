@@ -19,6 +19,8 @@ function loadData(): Promise<DashboardData> {
 
 const todayLabel = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
 const AUTO_REFRESH_MS = 60_000;
+// Quality and Strategic lists are hidden from the page for now; flip to true to show them again.
+const SHOW_QUALITY_STRATEGIC = false;
 
 function timeLabel(d: Date): string {
   return d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
@@ -88,7 +90,7 @@ export default function App() {
     [data, query],
   );
 
-  const summaryCards = useMemo(() => (data ? buildSummaryCards(data) : []), [data]);
+  const summaryCards = useMemo(() => (data ? buildSummaryCards(data, SHOW_QUALITY_STRATEGIC) : []), [data]);
   const statusMix = useMemo(() => (data ? buildStatusMix(data.hospitalDirector) : []), [data]);
 
   if (error && !data) {
@@ -122,8 +124,8 @@ export default function App() {
       <StatusMixBar segments={statusMix} />
       <ProjectCharts
         costEfficiency={data.costEfficiency}
-        quality={data.quality}
-        strategic={data.strategic}
+        quality={SHOW_QUALITY_STRATEGIC ? data.quality : []}
+        strategic={SHOW_QUALITY_STRATEGIC ? data.strategic : []}
       />
       <CostEfficiencyTable
         projects={filteredCostEff}
@@ -131,22 +133,26 @@ export default function App() {
         titleAr="قائمة مشاريع كفاءة الإنفاق · مسؤول المشاريع: أ. رهف الحقباني · المسؤول المالي: أ. عبدالله الجساس"
         meta={`${data.costEfficiency.length} projects · ${savingsLabel}`}
       />
-      <CostEfficiencyTable
-        projects={filteredQuality}
-        titleEn="Improvement (Quality) Projects"
-        titleAr="قائمة مشاريع التحسين (الجودة) · مسؤول: د. بدير"
-        meta={`${data.quality.length} projects`}
-        emptyLabel={emptyListLabel}
-        showSavings={false}
-      />
-      <CostEfficiencyTable
-        projects={filteredStrategic}
-        titleEn="Strategic Projects"
-        titleAr="قائمة المشاريع الاستراتيجية · مسؤول: أ. ناصر عنكيص"
-        meta={`${data.strategic.length} projects`}
-        emptyLabel={emptyListLabel}
-        showSavings={false}
-      />
+      {SHOW_QUALITY_STRATEGIC && (
+        <>
+          <CostEfficiencyTable
+            projects={filteredQuality}
+            titleEn="Improvement (Quality) Projects"
+            titleAr="قائمة مشاريع التحسين (الجودة) · مسؤول: د. بدير"
+            meta={`${data.quality.length} projects`}
+            emptyLabel={emptyListLabel}
+            showSavings={false}
+          />
+          <CostEfficiencyTable
+            projects={filteredStrategic}
+            titleEn="Strategic Projects"
+            titleAr="قائمة المشاريع الاستراتيجية · مسؤول: أ. ناصر عنكيص"
+            meta={`${data.strategic.length} projects`}
+            emptyLabel={emptyListLabel}
+            showSavings={false}
+          />
+        </>
+      )}
       <HospitalDirectorAccordion
         projects={filteredHospital}
         count={data.hospitalDirector.length}
